@@ -22,8 +22,18 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin'], function () {
-    Route::get('/login', 'LoginController@showLoginForm')->name('admin.login');
-    Route::post('/admin-check', 'LoginController@adminCheck')->name('admin.check');
-    Route::get('/logout', 'LoginController@adminLogout')->name('admin.logout');
+Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 'as' => 'admin.'], function () {
+    Route::get('/login', 'LoginController@showLoginForm')->middleware('autorized')->name('login');
+    Route::post('/admin-check', 'LoginController@adminCheck')->name('check');
+    Route::get('/logout', 'LoginController@adminLogout')->name('logout');
+
+    Route::get('/forget-password', 'ForgotPasswordController@showForgetPasswordForm')->name('forget.get');
+    Route::post('/forget-password', 'ForgotPasswordController@submitForgetPasswordForm')->name('forget.post'); 
+    Route::get('/reset-password/{token}', 'ForgotPasswordController@showResetPasswordForm')->name('reset.get');
+    Route::post('/reset-password', 'ForgotPasswordController@submitResetPasswordForm')->name('reset.post');
 }); 
+
+Route::group(['prefix' => 'admin', 'middleware' => 'notAutorized', 'as' => 'admin.', 'namespace' => 'App\Http\Controllers\Admin'], function () {
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    
+});
