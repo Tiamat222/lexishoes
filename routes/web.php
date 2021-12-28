@@ -35,5 +35,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 
 
 Route::group(['prefix' => 'admin', 'middleware' => 'notAutorized', 'as' => 'admin.', 'namespace' => 'App\Http\Controllers\Admin'], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-    
+    Route::group(['prefix' => 'settings', 'as' => 'settings.'], function () {
+        Route::get('/information', 'InformationController@index')->middleware('permission:information')->name('information');
+    });
 });
