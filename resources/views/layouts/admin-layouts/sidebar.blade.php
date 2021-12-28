@@ -36,14 +36,12 @@
                   <p>Категории</p>
                 </a>
               </li>
-              @permission('suppliers')
               <li class="nav-item">
                 <a href="" class="nav-link" title="Поставщики">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Поставщики</p>
                 </a>
               </li>
-              @endpermission 
               <li class="nav-item">
                 <a href="pages/layout/boxed.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -79,12 +77,14 @@
                   <p>Общие настройки</p>
                 </a>
               </li>
+              @permission('information')
               <li class="nav-item">
-                <a href="" class="nav-link" title="Информация">
+                <a href="{{ route('admin.settings.information') }}" class="nav-link" title="Информация">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Информация</p>
                 </a>
               </li>
+              @endpermission
               <li class="nav-item">
                 <a href="" class="nav-link" title="Логи магазина">
                   <i class="far fa-circle nav-icon"></i>
