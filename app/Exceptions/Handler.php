@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Log;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -35,7 +36,7 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
-        });
+            Log::error('Allert message: ' . $e->getMessage() . ' In: ' . $e->getFile() . ':' . $e->getLine());
+        })->stop();
     }
 }
