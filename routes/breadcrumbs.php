@@ -10,3 +10,10 @@ Breadcrumbs::for('information', function ($trail) {
     $trail->parent('home');
     $trail->push('Информация', route('admin.settings.information'));
 });
+
+// Home > Log
+Breadcrumbs::for('log', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Логи', route('admin.settings.log.index'));
+});
+
