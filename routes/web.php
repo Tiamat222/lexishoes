@@ -37,5 +37,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'notAutorized', 'as' => 'admi
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
     Route::group(['prefix' => 'settings', 'as' => 'settings.'], function () {
         Route::get('/information', 'InformationController@index')->middleware('permission:information')->name('information');
+        Route::group(['middleware' => 'permission:log', 'as' => 'log.'], function(){
+            Route::get('/logs', 'LogController@index')->name('index');
+            Route::get('/clear-logs/{param}', 'LogController@clearLogFile')->name('clear');
+        });
     });
 });
