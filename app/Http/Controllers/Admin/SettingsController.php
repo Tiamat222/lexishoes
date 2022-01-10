@@ -32,7 +32,7 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        return view('admin-templates.settings.general-settings', [
+        return view('admin-templates.settings.settings', [
             'settingsList' => $this->settingsService->getAllSettingsToArray(),
         ]);
     }
