@@ -8,12 +8,35 @@ Breadcrumbs::for('home', function ($trail) {
 // Home > Information
 Breadcrumbs::for('information', function ($trail) {
     $trail->parent('home');
-    $trail->push('Информация', route('admin.settings.information'));
+    $trail->push('Информация');
 });
 
 // Home > Log
 Breadcrumbs::for('log', function ($trail) {
     $trail->parent('home');
-    $trail->push('Логи', route('admin.settings.log.index'));
+    $trail->push('Логи');
 });
 
+// Home > Suppliers
+Breadcrumbs::for('suppliers', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Поставщики', route('admin.catalog.suppliers.index'));
+});
+
+// Home > Suppliers > Add supplier
+Breadcrumbs::for('add-supplier', function ($trail) {
+    $trail->parent('suppliers');
+    $trail->push('Добавить нового поставщика');
+});
+
+// Home > Suppliers > Suppliers in trash
+Breadcrumbs::for('trash-suppliers', function ($trail) {
+    $trail->parent('suppliers');
+    $trail->push('Корзина');
+}); 
+
+// Home > General settings
+Breadcrumbs::for('general-settings', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Настройки магазина');
+});
