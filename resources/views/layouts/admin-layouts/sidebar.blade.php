@@ -85,12 +85,22 @@
                 </a>
               </li>
               @endpermission
+              @permission('log')
               <li class="nav-item">
-                <a href="" class="nav-link" title="Логи магазина">
+                <a href="{{ route('admin.settings.log.index') }}" class="nav-link" title="Логи магазина">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Логи магазина</p>
                 </a>
               </li>
+              @endpermission
+              @permission('settings')
+              <li class="nav-item">
+                <a href="{{ route('admin.settings.index') }}" class="nav-link" title="Настройки сайта">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Настройки магазина</p>
+                </a>
+              </li>
+              @endpermission
             </ul>
           </li>
           <li class="nav-header">EXAMPLES</li>
