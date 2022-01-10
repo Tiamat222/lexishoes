@@ -47,7 +47,7 @@ class SettingsController extends Controller
     public function store(Request $request)
     {
         $this->settingsService->storeSettings($request->except(['_token', '_url']));
-        return redirect()->route('admin.settings.generalSettings.index');
+        return redirect()->route('admin.settings.index');
     }
 }
 

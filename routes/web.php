@@ -41,9 +41,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'notAutorized', 'as' => 'admi
             Route::get('/logs', 'LogController@index')->name('index');
             Route::get('/clear-logs/{param}', 'LogController@clearLogFile')->name('clear');
         });
-        Route::group(['middleware' => 'permission:general-settings'], function(){
-            Route::get('/admin-settings', 'SettingsController@index')->name('generalSettings.index');
-            Route::post('/admin-settings/store', 'SettingsController@store')->name('generalSettings.store');
+        Route::group(['middleware' => 'permission:settings'], function(){
+            Route::get('/admin-settings', 'SettingsController@index')->name('index');
+            Route::post('/admin-settings/store', 'SettingsController@store')->name('store');
         });
     });
     Route::group(['prefix' => 'catalog', 'as' => 'catalog.'], function () {

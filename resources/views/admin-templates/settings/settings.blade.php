@@ -32,7 +32,7 @@
         </div>
       <div class="row">
         <div class="col-md-6">
-          <form class="form-horizontal" method="POST" action="{{ route('admin.settings.generalSettings.store') }}" enctype="multipart/form-data">
+          <form class="form-horizontal" method="POST" action="{{ route('admin.settings.store') }}" enctype="multipart/form-data">
           {{ csrf_field() }}
           <div class="form-group">
             <label>Title магазина</label>
