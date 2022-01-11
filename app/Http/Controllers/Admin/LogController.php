@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -8,6 +7,8 @@ use App\Shop\Admin\Log\Services\LogService;
 class LogController extends Controller
 {    
     /**
+     * LogService instance
+     * 
      * @var LogService
      */
     private $logService;
