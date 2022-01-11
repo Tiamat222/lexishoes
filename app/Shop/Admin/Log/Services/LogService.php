@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Shop\Admin\Log\Services;
 
 use App\Shop\Admin\Log\Exceptions\FileNotFoundException;
@@ -40,7 +39,7 @@ class LogService
     /**
      * Delete content from log file
      *
-     * @param  string $file
+     * @param string $file
      * 
      * @throws ErrorException
      * @throws FileNotFoundException
@@ -64,7 +63,7 @@ class LogService
     /**
      * Get file extension
      *
-     * @param  SplFileInfo $file
+     * @param SplFileInfo $file
      * 
      * @return string
      */
@@ -76,7 +75,7 @@ class LogService
     /**
      * Get file name
      *
-     * @param  SplFileInfo $file
+     * @param SplFileInfo $file
      * 
      * @return string
      */
@@ -88,7 +87,7 @@ class LogService
     /**
      * Check for log file existence
      *
-     * @param  string $file
+     * @param string $file
      * 
      * @return bool
      */
