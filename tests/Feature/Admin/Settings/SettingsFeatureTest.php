@@ -13,23 +13,10 @@ use Tests\TestCase;
 class GeneralSettingsFeatureTest extends TestCase
 {
     use RefreshDatabase;
-    
-    /**
-     * Current admin
-     *
-     * @var Admin
-     */
-    private $admin;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->admin = Admin::factory()->create();
-        $permissionService = new PermissionService(new Permission());
-        
-        Permission::factory()->create(['id'=> 1, 'slug' => 'settings']);
-        $selectedPermission = $permissionService->getPermissionById(1);
-        $this->admin->permissions()->attach($selectedPermission);
     }
 
     /** @test **/
