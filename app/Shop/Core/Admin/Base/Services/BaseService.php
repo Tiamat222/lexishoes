@@ -36,6 +36,9 @@ abstract class BaseService
 
     /**
      * Get entity by id
+     * 
+     * @param int $id
+     * @throws EntityNotFoundException
      */
     public function getEntityById(int $id)
     {
@@ -47,10 +50,24 @@ abstract class BaseService
     }
 
     /**
+     * Get soft deleted entity by id
+     * 
+     * @param int $id
+     * @throws EntityNotFoundException
+     */
+    public function getSoftDeletedEntityById(int $id)
+    {
+        try {
+            return $this->model->onlyTrashed()->findOrFail($id);
+        } catch(ModelNotFoundException $e) {
+            throw new EntityNotFoundException($e->getMessage());
+        }
+    }
+
+    /**
      * Get all soft deleted entities with pagination
      *
      * @param  int $paginate
-     * 
      * @return LengthAwarePaginator
      */
     public function getAllSoftDeletedEntities(int $paginate): LengthAwarePaginator
@@ -73,25 +90,21 @@ abstract class BaseService
     /**
      * Entity force delete
      *
-     * @return void
+     * @return bool
      */
-    public function entityForceDelete(int $id): void
+    public function entityForceDelete(int $id): bool
     {
-        if(!(bool) $this->model->where('id', $id)->forceDelete()) {
-            abort(404);
-        }
+        return (bool) $this->getSoftDeletedEntityById($id)->forceDelete();
     }
 
     /**
      * Restore soft deleted entity
      *
-     * @return void
+     * @return bool
      */
-    public function restoreEntity(int $id): void
+    public function restoreEntity(int $id): bool
     {
-        if(!(bool) $this->model->where('id', $id)->restore()) {
-            abort(404);
-        }
+        return (bool) $this->getSoftDeletedEntityById($id)->restore();
     }
     
     /**
@@ -104,7 +117,7 @@ abstract class BaseService
     public function restoreAllEntities(array $data): bool
     {
         foreach($data['ids'] as $id) {
-            $this->model->where('id', $id)->restore();
+            $this->getSoftDeletedEntityById($id)->restore();
         }
         return true;
     }
@@ -119,7 +132,7 @@ abstract class BaseService
     public function forceDeleteAllEntities(array $data): bool
     {
         foreach($data['ids'] as $id) {
-            $this->model->where('id', $id)->forceDelete();
+            $this->getSoftDeletedEntityById($id)->forceDelete();
         }
         return true;
     }
