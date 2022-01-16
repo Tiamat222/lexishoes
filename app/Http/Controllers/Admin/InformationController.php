@@ -31,7 +31,8 @@ class InformationController extends Controller
      */
     public function index()
     {
-        $dataArray = $this->informationService->getData();
-        return view('admin-templates.settings.information', compact('dataArray'));
+        return view('admin-templates.settings.information',[
+            'dataArray' => $this->informationService->getData()
+        ]);
     }
 }
