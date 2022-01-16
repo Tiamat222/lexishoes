@@ -36,12 +36,14 @@
                   <p>Категории</p>
                 </a>
               </li>
+              @permission('suppliers')
               <li class="nav-item">
-                <a href="" class="nav-link" title="Поставщики">
+                <a href="{{ route('admin.catalog.suppliers.index') }}" class="nav-link" title="Поставщики">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Поставщики</p>
                 </a>
               </li>
+              @endpermission
               <li class="nav-item">
                 <a href="pages/layout/boxed.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -71,12 +73,6 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="" class="nav-link" title="Общие настройки">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Общие настройки</p>
-                </a>
-              </li>
               @permission('information')
               <li class="nav-item">
                 <a href="{{ route('admin.settings.information') }}" class="nav-link" title="Информация">
