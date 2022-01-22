@@ -21,7 +21,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
 Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\Admin', 'as' => 'admin.'], function () {
     Route::get('/login', 'LoginController@showLoginForm')->middleware('autorized')->name('login');
     Route::post('/admin-check', 'LoginController@adminCheck')->name('check');
@@ -55,5 +54,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'notAutorized', 'as' => 'admi
             Route::post('/suppliers/delete-all', 'SupplierController@forceDeleteAll')->name('suppliers.massDelete');
             Route::resource('/suppliers', 'SupplierController'); 
         });
+        Route::group(['middleware' => 'permission:categories'], function(){
+            Route::get('/categories/restore/{id}', 'CategoryController@restore')->name('categories.restore');
+            Route::delete('/categories/soft-delete/{id}', 'CategoryController@softDelete')->name('categories.delete');
+            Route::get('/categories/trash', 'CategoryController@trash')->name('categories.trash');
+            Route::post('/categories/create-slug', 'CategoryController@createSlug');
+            Route::resource('/categories', 'CategoryController');
+        });
     });
 });
+
