@@ -40,3 +40,27 @@ Breadcrumbs::for('general-settings', function ($trail) {
     $trail->parent('home');
     $trail->push('Настройки магазина');
 });
+
+// Home > Categories
+Breadcrumbs::for('categories', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Список категорий', route('admin.catalog.categories.index'));
+});
+
+// Home > Categories > New category
+Breadcrumbs::for('create-category', function ($trail) {
+    $trail->parent('categories');
+    $trail->push('Добавить категорию');
+});
+
+// Home > Categories > New category
+Breadcrumbs::for('trash-categories', function ($trail) {
+    $trail->parent('categories');
+    $trail->push('Корзина');
+});
+
+// Home > Categories > Show
+Breadcrumbs::for('show-category', function ($trail) {
+    $trail->parent('categories');
+    $trail->push('Просмотр категории');
+});
