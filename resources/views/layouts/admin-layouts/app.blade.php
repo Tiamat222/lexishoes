@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="{{ url('admin-template/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
   <link rel="stylesheet" href="{{ url('admin-template/dist/css/adminlte.min.css') }}">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+  <script>tinymce.init({selector:'textarea'});</script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <div class="wrapper">
@@ -36,7 +38,6 @@
   <script src="{{ url('admin-template/plugins/jquery-mapael/maps/usa_states.min.js') }}"></script>
   <script src="{{ url('admin-template/plugins/chart.js/Chart.min.js') }}"></script>
   <script src="{{ url('admin-template/dist/js/custom-scripts.js') }}"></script>
-  @stack('treeview')
-  @stack('adminSettings')
+  @stack('category')
 </body>
 </html>
