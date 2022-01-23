@@ -30,12 +30,14 @@
                   <p>Товары</p>
                 </a>
               </li>
+              @permission('categories')
               <li class="nav-item">
-                <a href="" class="nav-link" title="Категории">
+                <a href="{{ route('admin.catalog.categories.index') }}" class="nav-link" title="Категории">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Категории</p>
                 </a>
               </li>
+              @endpermission
               @permission('suppliers')
               <li class="nav-item">
                 <a href="{{ route('admin.catalog.suppliers.index') }}" class="nav-link" title="Поставщики">
