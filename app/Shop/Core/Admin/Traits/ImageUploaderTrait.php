@@ -38,9 +38,9 @@ trait ImageUploaderTrait
      *
      * @param string $pathToStore
      * 
-     * @return string|bool
+     * @return string
      */
-    private function checkCurrentDir($pathToStore): string|bool
+    private function checkCurrentDir($pathToStore): string
     {
         $currentDir = $pathToStore . '/' . now()->format('Y') . '/' . now()->format('m');
 
