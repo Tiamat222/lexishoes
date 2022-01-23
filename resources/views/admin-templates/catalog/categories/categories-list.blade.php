@@ -125,4 +125,7 @@
     </div>
   </section>
 </div>
+@push('category')
+<script src="{{ url('admin-template/dist/js/pages/admin/category.js') }}"></script>
+@endpush
 @endsection
