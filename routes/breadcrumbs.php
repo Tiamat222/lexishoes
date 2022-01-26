@@ -29,6 +29,12 @@ Breadcrumbs::for('add-supplier', function ($trail) {
     $trail->push('Добавить нового поставщика');
 });
 
+// Home > Suppliers > Show supplier
+Breadcrumbs::for('show-supplier', function ($trail) {
+    $trail->parent('suppliers');
+    $trail->push('Просмотр поставщика');
+});
+
 // Home > Suppliers > Suppliers in trash
 Breadcrumbs::for('trash-suppliers', function ($trail) {
     $trail->parent('suppliers');
