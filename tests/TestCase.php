@@ -39,6 +39,7 @@ abstract class TestCase extends BaseTestCase
             2 => 'log',
             3 => 'suppliers',
             4 => 'settings',
+            5 => 'categories'
         ];
 
         foreach($permissions as $key => $value) {
