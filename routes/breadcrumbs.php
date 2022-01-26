@@ -70,3 +70,9 @@ Breadcrumbs::for('show-category', function ($trail) {
     $trail->parent('categories');
     $trail->push('Просмотр категории');
 });
+
+// Home > Categories > Edit
+Breadcrumbs::for('edit-category', function ($trail) {
+    $trail->parent('categories');
+    $trail->push('Редактирование категории');
+});
