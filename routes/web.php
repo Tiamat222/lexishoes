@@ -56,6 +56,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'notAutorized', 'as' => 'admi
         });
         Route::group(['middleware' => 'permission:categories'], function(){
             Route::get('/categories/restore/{id}', 'CategoryController@restore')->name('categories.restore');
+            Route::get('/categories/disabled', 'CategoryController@disabled')->name('categories.disabled');
             Route::delete('/categories/soft-delete/{id}', 'CategoryController@softDelete')->name('categories.delete');
             Route::get('/categories/trash', 'CategoryController@trash')->name('categories.trash');
             Route::post('/categories/create-slug', 'CategoryController@createSlug');
