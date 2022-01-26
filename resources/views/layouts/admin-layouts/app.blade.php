@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>AdminLTE 3 | Dashboard 2</title>
+  <title>@yield('title')</title>
   <link rel="stylesheet" href="{{ url('admin-template/plugins/fontawesome-free/css/all.min.css') }}">
   <link rel="stylesheet" href="{{ url('admin-template/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
   <link rel="stylesheet" href="{{ url('admin-template/dist/css/adminlte.min.css') }}">
@@ -21,11 +21,7 @@
     @include('layouts.admin-layouts.sidebar')
     <!-- Content Wrapper. Contains page content -->
     @yield('content')
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-      <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+    <!-- Footer -->
     @include('layouts.admin-layouts.footer')
   </div>
   <script src="{{ url('admin-template/plugins/jquery/jquery.min.js') }}"></script>
