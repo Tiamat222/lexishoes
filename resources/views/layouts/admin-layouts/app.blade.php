@@ -35,5 +35,7 @@
   <script src="{{ url('admin-template/plugins/chart.js/Chart.min.js') }}"></script>
   <script src="{{ url('admin-template/dist/js/custom-scripts.js') }}"></script>
   @stack('category')
+  @stack('attribute-values')
+  @stack('import')
 </body>
 </html>
