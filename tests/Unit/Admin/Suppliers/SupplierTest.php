@@ -8,7 +8,6 @@ use App\Shop\Admin\Suppliers\Services\SupplierService;
 use App\Shop\Admin\Suppliers\Supplier;
 use App\Shop\Core\Admin\Base\Exceptions\EntityNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Validation\Validator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Tests\TestCase;
 use Carbon\Carbon;
@@ -24,20 +23,6 @@ class SupplierTest extends TestCase
      * @var SupplierService
      */
     private $supplierService;
-    
-    /**
-     * Validation rules
-     *
-     * @var array
-     */
-    private $rules;
-    
-    /**
-     * Validator
-     *
-     * @var \Illuminate\Validation\Factory
-     */
-    private $validator;
 
     public function setUp(): void
     {
@@ -230,34 +215,5 @@ class SupplierTest extends TestCase
             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
             Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
         '));
-    }
-        
-    /**
-     * Fields validation
-     *
-     * @param  string $field
-     * @param  string $value
-     * 
-     * @return Validator
-     */
-    protected function getFieldValidator(string $field, string $value): Validator
-    {
-        return $this->validator->make(
-            [$field => $value], 
-            [$field => $this->rules[$field]]
-        );
-    }
-    
-    /**
-     * Get fields for validation
-     *
-     * @param  string $field
-     * @param  string $value
-     * 
-     * @return bool
-     */
-    protected function validateField(string $field, string $value): bool
-    {
-        return $this->getFieldValidator($field, $value)->passes();
     }
 }

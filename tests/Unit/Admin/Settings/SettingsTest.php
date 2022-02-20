@@ -102,17 +102,4 @@ class SettingsTest extends TestCase
         $this->assertFalse($this->validateField('admin_email', '123'));
         $this->assertFalse($this->validateField('admin_email', '@gmail.com'));
     }
-
-    protected function getFieldValidator($field, $value)
-    {
-        return $this->validator->make(
-            [$field => $value], 
-            [$field => $this->rules[$field]]
-        );
-    }
-
-    protected function validateField($field, $value)
-    {
-        return $this->getFieldValidator($field, $value)->passes();
-    }
 }
