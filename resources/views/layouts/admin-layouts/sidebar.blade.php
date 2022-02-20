@@ -46,12 +46,14 @@
                 </a>
               </li>
               @endpermission
+              @permission('attributes')
               <li class="nav-item">
-                <a href="pages/layout/boxed.html" class="nav-link">
+                <a href="{{ route('admin.catalog.attributes.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Характеристики товаров</p>
+                  <p>Атрибуты товаров</p>
                 </a>
               </li>
+              @endpermission
               <li class="nav-item">
                 <a href="pages/layout/fixed-sidebar.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
