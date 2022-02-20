@@ -76,3 +76,51 @@ Breadcrumbs::for('edit-category', function ($trail) {
     $trail->parent('categories');
     $trail->push('Редактирование категории');
 });
+
+// Home > Export
+Breadcrumbs::for('export', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Экспорт');
+});
+
+// Home > Export
+Breadcrumbs::for('import', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Импорт');
+});
+
+// Home > Attributes
+Breadcrumbs::for('attributes', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Атрибуты товаров', route('admin.catalog.attributes.index'));
+});
+
+// Home > Attributes > New attribute
+Breadcrumbs::for('create-attribute', function ($trail) {
+    $trail->parent('attributes');
+    $trail->push('Новый атрибут');
+});
+
+// Home > Attributes > Create attribute value
+Breadcrumbs::for('create-attribute-value', function ($trail) {
+    $trail->parent('attributes');
+    $trail->push('Новое значение');
+});
+
+// Home > Attributes > Edit attribute
+Breadcrumbs::for('edit-attribute', function ($trail) {
+    $trail->parent('attributes');
+    $trail->push('Редактирование атрибута');
+});
+
+// Home > Attributes > Attribute values
+Breadcrumbs::for('attribute-values', function ($trail) {
+    $trail->parent('attributes');
+    $trail->push('Значения атрибута');
+});
+
+// Home > Attributes > Edit attribute value
+Breadcrumbs::for('edit-attribute-value', function ($trail) {
+    $trail->parent('attributes');
+    $trail->push('Редактирование значения атрибута');
+});
