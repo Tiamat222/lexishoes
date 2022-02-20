@@ -62,6 +62,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'notAutorized', 'as' => 'admi
             Route::post('/categories/create-slug', 'CategoryController@createSlug');
             Route::resource('/categories', 'CategoryController');
         });
+        Route::group(['middleware' => 'permission:attributes'], function(){
+            Route::get('/attributes/values-list/{id}', 'AttributeValueController@valuesList')->name('attribute-values.valuesList');
+            Route::resource('/attributes', 'AttributeController');
+            Route::resource('/attribute-values', 'AttributeValueController');
+        });
     });
 });
 
