@@ -19,9 +19,19 @@ abstract class BaseService
      * 
      * @return LengthAwarePaginator
      */
-    public function getAllEntitiesPaginate(int $paginate): LengthAwarePaginator
+    public function getAllEntitiesPaginate(int $paginate, string $orderBy = 'id', string $sortBy = 'asc'): LengthAwarePaginator
     {
-        return $this->model->paginate($paginate);
+        return $this->model->orderBy($orderBy, $sortBy)->paginate($paginate);
+    } 
+
+    /**
+     * Get all entities
+     *
+     * @return Collection
+     */
+    public function getAllEntities(): Collection
+    {
+        return $this->model->get();
     } 
 
     /**
