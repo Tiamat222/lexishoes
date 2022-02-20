@@ -1,10 +1,6 @@
 <?php
-
 namespace Tests\Feature\Admin\Suppliers;
 
-use App\Shop\Admin\Admins\Admin;
-use App\Shop\Admin\Permissions\Permission;
-use App\Shop\Admin\Permissions\Services\PermissionService;
 use App\Shop\Admin\Suppliers\Services\SupplierService;
 use App\Shop\Admin\Suppliers\Supplier;
 use Illuminate\Foundation\Testing\RefreshDatabase;
