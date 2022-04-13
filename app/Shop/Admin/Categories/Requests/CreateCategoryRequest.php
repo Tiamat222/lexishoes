@@ -48,13 +48,13 @@ class CreateCategoryRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => __('admincategories.category-name-required'),
-            'name.min' => __('admincategories.category-name-min'),
-            'name.unique' => __('admincategories.category-name-unique'),
-            'slug.required' => __('admincategories.category-slug-required'),
-            'slug.regex' => __('admincategories.category-slug-regex'),
-            'category_image.image' => __('admincategories.category-image-file'),
-            'category_image.mimes' => __('admincategories.category-image-mimes')
+            'name.required' => __('admin-categories.category-name-required'),
+            'name.min' => __('admin-categories.category-name-min'),
+            'name.unique' => __('admin-categories.category-name-unique'),
+            'slug.required' => __('admin-categories.category-slug-required'),
+            'slug.regex' => __('admin-categories.category-slug-regex'),
+            'category_image.image' => __('admin-categories.category-image-file'),
+            'category_image.mimes' => __('admin-categories.category-image-mimes')
         ]; 
     }
     
@@ -74,7 +74,7 @@ class CreateCategoryRequest extends FormRequest
             'meta_title' => $this->input('meta_title'), 
             'meta_description' => $this->input('meta_description'), 
             'meta_keywords' => $this->input('meta_keywords'),
-            'category_id' => $this->input('category_id')
+            'category_id' => $this->input('category-id')
         ]);
     }
 }
