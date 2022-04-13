@@ -36,17 +36,6 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->configureRateLimiting();
-
-        $this->routes(function () {
-            Route::prefix('api')
-                ->middleware('api')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/api.php'));
-
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/web.php'));
-        });
     }
 
     /**
@@ -59,5 +48,69 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
         });
+    }
+
+    /**
+     * Load all routes
+     *
+     * @return void
+     */
+    public function map()
+    {
+        $this->mapBreadcrumbsWebRoutes();
+        $this->mapFrontWebRoutes();
+        $this->mapAdminWebRoutes();
+        $this->mapApiWebRoutes();
+    }
+
+    /**
+     * Admin routes
+     *
+     * @return void
+     */
+    protected function mapAdminWebRoutes()
+    {
+        Route::middleware('web')
+            ->as('admin.')
+            ->namespace('App\Http\Controllers\Admin')
+            ->prefix('admin')
+            ->group(base_path('routes/web/admin.php'));
+    }
+
+    /**
+     * Front routes
+     *
+     * @return void
+     */
+    protected function mapFrontWebRoutes()
+    {
+        Route::middleware('web')
+            ->as('front.')
+            ->namespace('App\Http\Controllers\Front')
+            ->group(base_path('routes/web/front.php'));
+    }
+
+    /**
+     * Breadcrumbs routes
+     *
+     * @return void
+     */
+    protected function mapBreadcrumbsWebRoutes()
+    {
+        Route::namespace($this->namespace)
+            ->group(base_path('routes/web/breadcrumbs.php'));
+    }
+
+    /**
+     * Api routes
+     *
+     * @return void
+     */
+    protected function mapApiWebRoutes()
+    {
+        Route::middleware('api')
+            ->namespace($this->namespace)
+            ->prefix('api')
+            ->group(base_path('routes/api/api.php'));
     }
 }
