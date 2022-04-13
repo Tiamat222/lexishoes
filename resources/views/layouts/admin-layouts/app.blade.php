@@ -36,6 +36,8 @@
   <script src="{{ url('admin-template/dist/js/custom-scripts.js') }}"></script>
   @stack('category')
   @stack('attribute-values')
+  @stack('products')
   @stack('import')
+  @stack('admin-profile')
 </body>
 </html>
