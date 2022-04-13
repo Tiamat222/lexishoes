@@ -1,9 +1,9 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <a href="{{ route('admin.dashboard') }}" class="brand-link">
     @if(isset($storeLogo))
-    <img src="{{ asset($storeLogo) }}" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="{{ asset($storeLogo) }}" class="brand-image img-circle elevation-3" style="opacity: .8">
     @endif
-    <span class="brand-text font-weight-light">{{($storeTitle) ? $storeTitle : ''}}</span>
+    <span class="brand-text font-weight-light">{{(isset($storeTitle)) ? $storeTitle : ''}}</span>
   </a>
   <div class="sidebar">
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
