@@ -9,7 +9,7 @@
 <div class="alert callout callout-danger" style="background:#FF8080;">
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
   <h5><i class="icon fas fa-ban"></i>Ошибка!</h5>
-    @if(count($message) >= 1)
+    @if(is_array($message) && count($message) >= 1)
       @foreach($message as $errorMessage)
         - {{ $errorMessage }}<br>
       @endforeach
