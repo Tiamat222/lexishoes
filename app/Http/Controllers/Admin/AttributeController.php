@@ -118,4 +118,14 @@ class AttributeController extends Controller
             ->route('admin.catalog.attributes.index')
             ->with('success_message', __('admin-attributes.attribute-destroy-success'));
     }
+
+    /**
+     * Get all product attributes
+     *
+     * @return \Illuminate\Database\Eloquent\Collection;
+     */
+    public function getAllAttributes()
+    {
+        return $this->attributeService->getAllEntities(['id', 'name']);
+    }
 }
