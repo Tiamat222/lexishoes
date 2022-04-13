@@ -20,11 +20,11 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title" style="margin-top: 9px;">
+            <h3 class="card-title" style="margin-top:7px;">
               <i class="fa fa-list-alt" aria-hidden="true"></i> Категории
             </h3>
             <div style="float:right;">
-              <a href="" class="btn btn-block btn-default btn-sm a-trash" title="Корзина" style="width: 200px;;">
+              <a href="{{ route('admin.catalog.categories.disabled') }}" class="btn btn-block btn-default btn-sm a-trash" title="Корзина" style="width: 200px;;">
                 <i class="fas fa-minus-circle"></i>
                 Отключенные категории
               </a>
@@ -45,33 +45,15 @@
                 <table id="example2" class="table table-bordered table-hover dataTable dtr-inline">
                   <thead>
                     <tr role="row">                  
-                      <th class="th-middle">
-                        ID
-                      </th>
-                      <th class="th-middle">
-                        Категория
-                      </th>
-                      <th class="th-middle" style="width:450px;">
-                        Описание
-                      </th>
-                      <th class="th-middle" style="width:250px;">
-                        Кол-во товаров в категории
-                      </th>
-                      <th class="th-middle">
-                        Родительская категория
-                      </th>
-                      <th class="th-middle">
-                        Дата создания
-                      </th>
-                      <th class="th-middle">
-                        Статус
-                      </th>
-                      <th class="th-middle">
-                        Cover категории
-                      </th>
-                      <th class="th-middle" style="width:100px;">
-                        Действия
-                      </th>
+                      <th class="th-middle">ID</th>
+                      <th class="th-middle">Категория</th>
+                      <th class="th-middle" style="width:450px;">Описание</th>
+                      <th class="th-middle" style="width:100px;">Кол-во товаров в категории</th>
+                      <th class="th-middle">Родительская категория</th>
+                      <th class="th-middle">Дата создания</th>
+                      <th class="th-middle">Статус</th>
+                      <th class="th-middle">Cover категории</th>
+                      <th class="th-middle" style="width:100px;">Действия</th>
                     </tr>
                   </thead>
                   <tbody>
