@@ -1,6 +1,7 @@
 <?php
 namespace App\Shop\Core\Admin\Traits;
 
+use Illuminate\Support\Arr;
 use Image;
 
 trait ImageUploaderTrait
@@ -15,7 +16,7 @@ trait ImageUploaderTrait
     /**
      * Entry point for upload image
      *
-     * @param int $size
+     * @param array $size
      * @param \Illuminate\Http\UploadedFile $imageData
      * 
      * @return string
@@ -23,14 +24,27 @@ trait ImageUploaderTrait
     public function uploadImages($size, $imageData): string
     {
         $path = storage_path($this->storagePath);
-        $imageName = $this->getImageName($imageData);
         $pathToStore = $this->checkCurrentDir($path);
-        
-        foreach($size as $value) {
-            $this->uploadImage($imageData, $pathToStore, $imageName, $value);
-        }
+        $sizeCount = count($size);
+        $dataToReturn = '';
 
-        return 'storage/images/' . now()->format('Y') . '/' . now()->format('m') . '/' . $imageName;
+        foreach($size as $key => $value) {
+            $imageName = $this->getImageName($imageData, $value);
+            $this->uploadImage($imageData, $pathToStore, $imageName, $value);
+            if($sizeCount > 1) {
+                if($key === array_key_last($size)) {
+                    $dataToReturn .= 'storage/images/' . now()->format('Y') . '/' . now()->format('m') . '/' . $imageName;
+                } else {
+                    $dataToReturn .= 'storage/images/' . now()->format('Y') . '/' . now()->format('m') . '/' . $imageName . ',';
+                }
+            }
+        }
+    
+        if($sizeCount > 1) {
+            return $dataToReturn;
+        } else {
+            return 'storage/images/' . now()->format('Y') . '/' . now()->format('m') . '/' . $imageName;
+        }
     }
     
     /**
@@ -59,10 +73,11 @@ trait ImageUploaderTrait
      * 
      * @return string
      */
-    private function getImageName($image): string
+    private function getImageName($image, $size): string
     {
         $filename = $image->getClientOriginalName();
-        return time() . '-' . $filename;
+
+        return $size . '-' . time() . '-' . $filename;
     }
     
     /**
