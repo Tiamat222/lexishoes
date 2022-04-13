@@ -70,10 +70,10 @@
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <div class="dropdown-divider"></div>
 
-          <a href="" class="dropdown-item">
+          <a href="{{ route('admin.settings.profile.edit') }}" class="dropdown-item">
             <i class="fas fa-address-card"></i> Профиль
           </a>
-          <a href="" class="dropdown-item">
+          <a href="{{ route('admin.logout') }}" class="dropdown-item">
             <i class="fas fa-sign-out-alt"></i> Выход
           </a>
           <div class="dropdown-divider"></div>
