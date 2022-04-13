@@ -76,7 +76,7 @@
                         <label for="inputStatus"><strong>Родительская категория</strong></label>
                         <ul class="checktree">
                           @foreach ($categories as $category)
-                            <li><input type="radio" name="category_id" value="{{ $category->id }}"> {{ $category->name }}
+                            <li><input type="radio" name="category-id" value="{{ $category->id }}"> {{ $category->name }}
                               <ul>
                                 @foreach ($category->childrenCategories as $childCategory)
                                   @include('admin-templates.catalog.categories.child-categories', ['child_category' => $childCategory])
