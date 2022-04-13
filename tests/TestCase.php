@@ -56,7 +56,8 @@ abstract class TestCase extends BaseTestCase
             4 => 'settings',
             5 => 'categories',
             6 => 'export',
-            7 => 'attributes'
+            7 => 'attributes',
+            8 => 'admin-profile',
         ];
 
         foreach($permissions as $key => $value) {
