@@ -37,7 +37,11 @@ class AdminsSettingsTest extends TestCase
     {
         parent::setUp();
 
-        $this->adminsSettingsService = new AdminsSettingsService(new Admin(), new AdminService(new Admin()), new PermissionService(new Permission(), new AdminService(new Admin())));
+        $this->adminsSettingsService = new AdminsSettingsService(
+            new Admin(), new AdminService(new Admin()), 
+            new PermissionService(new Permission(), 
+            new AdminService(new Admin()))
+        );
     }
 
     /** @test */
