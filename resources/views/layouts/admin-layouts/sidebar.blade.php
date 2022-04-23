@@ -87,6 +87,11 @@
               <a href="{{ route('admin.settings.import.index') }}" class="nav-link" title="Импорт"><i class="far fa-circle nav-icon"></i><p>Импорт</p></a>
             </li>
             @endpermission
+            @permission('admins')
+            <li class="nav-item">
+              <a href="{{ route('admin.settings.admins.index') }}" class="nav-link" title="Импорт"><i class="far fa-circle nav-icon"></i><p>Администраторы</p></a>
+            </li>
+            @endpermission
           </ul>
         </li>
         @permission('customers')
