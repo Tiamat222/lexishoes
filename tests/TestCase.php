@@ -123,10 +123,10 @@ abstract class TestCase extends BaseTestCase
             6 => 'suppliers',
             7 => 'categories',
             8 => 'attributes',
-            8 => 'products',
-            8 => 'admin-profile',
-            8 => 'customers',
-            8 => 'admins',
+            9 => 'products',
+            10 => 'admin-profile',
+            11 => 'customers',
+            12 => 'admins',
         ];
 
         foreach($permissions as $key => $value) {
