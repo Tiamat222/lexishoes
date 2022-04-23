@@ -46,8 +46,10 @@ trait RecordFeed
      */
     private function recordFeed(string $event): void
     {
+        $admin = auth()->guard('admins')->user();
         $this->feeds()->create([
-            'admin_id' => auth()->guard('admins')->id(),
+            'admin_id' => $admin->id,
+            'admin_login' => $admin->login,
             'type' => $event . '_' . strtolower(class_basename($this))
         ]);
     }
