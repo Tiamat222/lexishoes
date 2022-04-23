@@ -39,5 +39,7 @@
   @stack('products')
   @stack('import')
   @stack('admin-profile')
+  @stack('settings')
+  @stack('admin')
 </body>
 </html>
