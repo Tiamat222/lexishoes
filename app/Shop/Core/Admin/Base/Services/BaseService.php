@@ -3,6 +3,7 @@ namespace App\Shop\Core\Admin\Base\Services;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Shop\Core\Admin\Base\Exceptions\EntityNotFoundException;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 abstract class BaseService
@@ -19,8 +20,11 @@ abstract class BaseService
      * 
      * @return LengthAwarePaginator
      */
-    public function getAllEntitiesPaginate(int $paginate, string $orderBy = 'id', string $sortBy = 'asc'): LengthAwarePaginator
+    public function getAllRecordsPaginate(int $paginate, string $column = null, string $param = null, string $orderBy = 'id', string $sortBy = 'asc'): LengthAwarePaginator
     {
+        if($column !== null && $param !== null) {
+            return $this->model->where($column, $param)->orderBy($orderBy, $sortBy)->paginate($paginate);
+        }
         return $this->model->orderBy($orderBy, $sortBy)->paginate($paginate);
     } 
 
@@ -29,9 +33,12 @@ abstract class BaseService
      *
      * @return Collection
      */
-    public function getAllEntities(): Collection
+    public function getAllRecords(array $data = null, string $orderBy = 'id', string $sortBy = 'asc'): Collection
     {
-        return $this->model->get();
+        if($data) {
+            return $this->model->select($data)->orderBy($orderBy, $sortBy)->get();
+        }
+        return $this->model->orderBy($orderBy, $sortBy)->get();
     } 
 
     /**
@@ -39,7 +46,7 @@ abstract class BaseService
      *
      * @return int
      */
-    public function countEntitiesInTrash(): int
+    public function countRecordsInTrash(): int
     {
         return $this->model->onlyTrashed()->count();
     }
@@ -50,7 +57,7 @@ abstract class BaseService
      * @param int $id
      * @throws EntityNotFoundException
      */
-    public function getEntityById(int $id)
+    public function getRecordById(int $id)
     {
         try {
             return $this->model->findOrFail($id);
@@ -65,7 +72,7 @@ abstract class BaseService
      * @param int $id
      * @throws EntityNotFoundException
      */
-    public function getSoftDeletedEntityById(int $id)
+    public function getSoftDeletedRecordById(int $id)
     {
         try {
             return $this->model->onlyTrashed()->findOrFail($id);
@@ -80,7 +87,7 @@ abstract class BaseService
      * @param  int $paginate
      * @return LengthAwarePaginator
      */
-    public function getAllSoftDeletedEntities(int $paginate): LengthAwarePaginator
+    public function getAllSoftDeletedRecords(int $paginate): LengthAwarePaginator
     {
         return $this->model->onlyTrashed()->paginate($paginate);
     }
@@ -90,11 +97,23 @@ abstract class BaseService
      *
      * @return void
      */
-    public function entitySoftDelete(int $id): void
+    public function recordSoftDelete(int $id): void
     {
         if(!(bool) $this->model->where('id', $id)->delete()) {
             abort(404);
         }
+    }
+    
+    /**
+     * Destroy record
+     *
+     * @param  int $id
+     * 
+     * @return void
+     */
+    public function destroyRecord($id)
+    {
+        return $this->recordSoftDelete($id);
     }
 
     /**
@@ -102,19 +121,21 @@ abstract class BaseService
      *
      * @return bool
      */
-    public function entityForceDelete(int $id): bool
+    public function recordForceDelete(int $id): bool
     {
-        return (bool) $this->getSoftDeletedEntityById($id)->forceDelete();
+        return (bool) $this->getSoftDeletedRecordById($id)->forceDelete();
     }
 
     /**
      * Restore soft deleted entity
      *
-     * @return bool
+     * @return void
      */
-    public function restoreEntity(int $id): bool
+    public function restoreRecord(int $id): void
     {
-        return (bool) $this->getSoftDeletedEntityById($id)->restore();
+        if(!(bool) $this->getSoftDeletedRecordById($id)->restore()) {
+            abort(404);
+        }
     }
     
     /**
@@ -124,10 +145,10 @@ abstract class BaseService
      * 
      * @return bool
      */
-    public function restoreAllEntities(array $data): bool
+    public function restoreAllRecords(array $data): bool
     {
         foreach($data['ids'] as $id) {
-            $this->getSoftDeletedEntityById($id)->restore();
+            $this->getSoftDeletedRecordById($id)->restore();
         }
         return true;
     }
@@ -139,11 +160,56 @@ abstract class BaseService
      * 
      * @return bool
      */
-    public function forceDeleteAllEntities(array $data): bool
+    public function forceDeleteAllRecords(array $data): bool
     {
         foreach($data['ids'] as $id) {
-            $this->getSoftDeletedEntityById($id)->forceDelete();
+            $this->getSoftDeletedRecordById($id)->forceDelete();
         }
+        return true;
+    }
+    
+    /**
+     * Get all records (with soft deleted)
+     *
+     * @param  array $columns
+     * 
+     * @return array
+     */
+    public function getAllRecordsWithTrashed(array $columns): array
+    {
+        return $this
+                ->model
+                ->withTrashed()
+                ->select($columns)
+                ->get()
+                ->toArray();
+    }
+    
+    /**
+     * Turn on admin status
+     *
+     * @param  int $id
+     * 
+     * @return bool
+     */
+    public function turnOnStatus(int $id): bool
+    {
+        $entity = $this->getRecordById($id);
+        $entity->update(['status' => 1]);
+        return true;
+    }
+    
+    /**
+     * Turn off admin status
+     *
+     * @param  int $id
+     * 
+     * @return bool
+     */
+    public function turnOffStatus(int $id): bool
+    {
+        $entity = $this->getRecordById($id);
+        $entity->update(['status' => 0]);
         return true;
     }
 }
