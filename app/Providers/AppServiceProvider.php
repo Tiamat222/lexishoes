@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Shop\Admin\Settings\Services\SettingsService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use App\Shop\Admin\Settings\Setting;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,24 +27,5 @@ class AppServiceProvider extends ServiceProvider
     public function boot(SettingsService $settingsService)
     {
         Schema::defaultStringLength(191);
-
-        if(Schema::hasTable('general_settings')){
-            $storeLogo = $settingsService->getAllSettingsToArray()['store_logo'];
-            if(isset($storeLogo) && $storeLogo === '') {
-                $storeLogo = 'storage/images/default-images/default-store.jpg';
-            }
-            
-            $storeTitle = $settingsService->getAllSettingsToArray()['store_title'];
-            if(isset($storeTitle) && $storeTitle === '') {
-                $storeTitle = 'Нет названия';
-            }
-
-            view()->composer('layouts.admin-layouts.sidebar', function($view) use ($storeLogo, $storeTitle) {
-                $view->with([
-                    'storeLogo' => $storeLogo,
-                    'storeTitle' => $storeTitle,
-                ]);
-            });
-        }
     }
 }
