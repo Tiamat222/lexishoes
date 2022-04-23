@@ -135,4 +135,15 @@ abstract class TestCase extends BaseTestCase
             $this->admin->permissions()->attach($selectedPermission);
         }
     }
+
+    protected function testAdmin()
+    {
+        return Admin::factory()->create([
+            'id' => 2,
+            'login' => 'Test login',
+            'email' => 'TestEmail@gmail.com',
+            'telephone' => '+39(999) 999-99-99',
+            'avatar' => 'storage/images/2022/03/1647613994-image-1.jpg'
+        ]);
+    }
 }
