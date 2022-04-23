@@ -57,7 +57,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        $this->mapBreadcrumbsWebRoutes();
         $this->mapFrontWebRoutes();
         $this->mapAdminWebRoutes();
         $this->mapApiWebRoutes();
@@ -88,17 +87,6 @@ class RouteServiceProvider extends ServiceProvider
             ->as('front.')
             ->namespace('App\Http\Controllers\Front')
             ->group(base_path('routes/web/front.php'));
-    }
-
-    /**
-     * Breadcrumbs routes
-     *
-     * @return void
-     */
-    protected function mapBreadcrumbsWebRoutes()
-    {
-        Route::namespace($this->namespace)
-            ->group(base_path('routes/web/breadcrumbs.php'));
     }
 
     /**
