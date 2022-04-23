@@ -46,7 +46,7 @@ class AdminsSettingsTest extends TestCase
     public function all_admins_can_be_shown_with_paginatation()
     {
         Admin::factory(6)->create();
-        $allAdmins = $this->adminsSettingsService->getAllEntitiesPaginate(10);
+        $allAdmins = $this->adminsSettingsService->getAllRecordsPaginate(10);
 
         $this->assertEquals(7, count($allAdmins));
         $this->assertInstanceOf(LengthAwarePaginator::class, $allAdmins);
@@ -68,7 +68,7 @@ class AdminsSettingsTest extends TestCase
 
         $this->assertTrue($createdProfile);
 
-        $getCreatedAdmin = $this->adminsSettingsService->getEntityById(2);
+        $getCreatedAdmin = $this->adminsSettingsService->getRecordById(2);
 
         $this->assertEquals(2, $getCreatedAdmin->id);
         $this->assertEquals('New login', $getCreatedAdmin->login);
@@ -101,7 +101,7 @@ class AdminsSettingsTest extends TestCase
 
         $this->assertTrue($updatedProfile);
 
-        $getUpdatedAdmin = $this->adminsSettingsService->getEntityById($updateDto->id);
+        $getUpdatedAdmin = $this->adminsSettingsService->getRecordById($updateDto->id);
 
         $this->assertEquals(999, $getUpdatedAdmin->id);
         $this->assertEquals('Updated login', $getUpdatedAdmin->login);
@@ -114,7 +114,7 @@ class AdminsSettingsTest extends TestCase
     public function admins_in_trash_can_be_counted()
     {
         Admin::factory(6)->create(['deleted_at' => Carbon::now()]);
-        $allAdmins = $this->adminsSettingsService->countEntitiesInTrash();
+        $allAdmins = $this->adminsSettingsService->countRecordsInTrash();
 
         $this->assertEquals(6, $allAdmins);
     }
@@ -124,14 +124,14 @@ class AdminsSettingsTest extends TestCase
     {
         $this->expectException(EntityNotFoundException::class);
 
-        $this->adminsSettingsService->getEntityById(2);
+        $this->adminsSettingsService->getRecordById(2);
     }
 
     /** @test */
     public function admin_can_be_fetched_from_bd_by_id()
     {
         Admin::factory()->create(['login' => 'Test admin']);
-        $admin = $this->adminsSettingsService->getEntityById(1);
+        $admin = $this->adminsSettingsService->getRecordById(1);
 
         $this->assertInstanceOf(Admin::class, $admin);
     }
@@ -140,7 +140,7 @@ class AdminsSettingsTest extends TestCase
     public function all_soft_deleted_suppliers_can_be_fetched_from_database_with_pagination()
     {
         Admin::factory(6)->create(['deleted_at' => Carbon::now()]);
-        $allSoftDeletedAdmins = $this->adminsSettingsService->getAllSoftDeletedEntities(6);
+        $allSoftDeletedAdmins = $this->adminsSettingsService->getAllSoftDeletedRecords(6);
 
         $this->assertEquals(6, count($allSoftDeletedAdmins));
         $this->assertInstanceOf(LengthAwarePaginator::class, $allSoftDeletedAdmins);
@@ -150,9 +150,9 @@ class AdminsSettingsTest extends TestCase
     public function admin_can_be_soft_deleted()
     {
         $admin = Admin::factory()->create();
-        $this->adminsSettingsService->entitySoftDelete($admin->id);
+        $this->adminsSettingsService->recordSoftDelete($admin->id);
         
-        $this->assertEquals(1, count($this->adminsSettingsService->getAllSoftDeletedEntities(6)));
+        $this->assertEquals(1, count($this->adminsSettingsService->getAllSoftDeletedRecords(6)));
     }
 
     /** @test */
@@ -161,11 +161,11 @@ class AdminsSettingsTest extends TestCase
         $admin = Admin::factory()->create(['deleted_at' => Carbon::now()]);
 
         $this->assertNotEquals(NULL, $admin->deleted_at);
-        $this->assertEquals(1, count($this->adminsSettingsService->getAllSoftDeletedEntities(6)));
+        $this->assertEquals(1, count($this->adminsSettingsService->getAllSoftDeletedRecords(6)));
 
-        $this->adminsSettingsService->entityForceDelete($admin->id);
+        $this->adminsSettingsService->recordForceDelete($admin->id);
 
-        $this->assertEquals(1, count($this->adminsSettingsService->getAllEntitiesPaginate(6)));
+        $this->assertEquals(1, count($this->adminsSettingsService->getAllRecordsPaginate(6)));
     }
 
     /** @test */
@@ -188,10 +188,10 @@ class AdminsSettingsTest extends TestCase
         $admin = Admin::factory()->create(['deleted_at' => Carbon::now()]);
 
         $this->assertNotEquals(NULL, $admin->deleted_at);
-        $this->assertEquals(1, count($this->adminsSettingsService->getAllSoftDeletedEntities(6)));
+        $this->assertEquals(1, count($this->adminsSettingsService->getAllSoftDeletedRecords(6)));
         
-        $this->adminsSettingsService->restoreEntity($admin->id);
-        $restoredAdmin = $this->adminsSettingsService->getEntityById($admin->id);
+        $this->adminsSettingsService->restoreRecord($admin->id);
+        $restoredAdmin = $this->adminsSettingsService->getRecordById($admin->id);
 
         $this->assertInstanceOf(Admin::class, $restoredAdmin);
         $this->assertEquals(NULL, $restoredAdmin->deleted_at);
