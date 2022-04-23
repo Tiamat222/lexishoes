@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Shop\Admin\Permissions\Permission;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Admin extends Authenticatable
 {
@@ -37,17 +39,17 @@ class Admin extends Authenticatable
     ];
         
     /**
-     * Admin have permissions
+     * Admin has permissions
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function permissions()
+    public function permissions(): BelongsToMany
     {
-        return $this->belongsToMany(Permission::class, 'admins_permissions');
+        return $this->belongsToMany(Permission::class, 'admins_permissions')->orderBy('name');
     }
     
     /**
-     * Admin has permission
+     * Admin has permission (by slug)
      *
      * @param  string $permission
      * 
@@ -65,16 +67,16 @@ class Admin extends Authenticatable
      */
     public function feeds(): HasMany
     {
-        return $this->hasMany(Feed::class)->where('created_at','>', \Carbon\Carbon::now()->addDays(-100));
+        return $this->hasMany(Feed::class);
     }
     
     /**
-     * Latest feeds
+     * Latest feeds (last 3 days)
      *
      * @return HasMany
      */
     public function latestFeeds(): HasMany
     {
-        return $this->hasMany(Feed::class)->where('created_at','>', \Carbon\Carbon::now()->addDays(-2));
+        return $this->hasMany(Feed::class)->where('created_at','>', Carbon::now()->addDays(-3));
     }
 }
