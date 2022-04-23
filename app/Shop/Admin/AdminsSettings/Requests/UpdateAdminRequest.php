@@ -94,7 +94,7 @@ class UpdateAdminRequest extends FormRequest
     {
         return new AdminUpdateDto([
             'id' => $this->input('id'),
-            'id' => $this->input('id'),
+            'status' => $this->input('status'),
             'login' => $this->input('login'),
             'email' => $this->input('email'), 
             'telephone' => $this->input('telephone'),
