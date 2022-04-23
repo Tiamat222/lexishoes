@@ -31,7 +31,7 @@
             </div>
             <div class="row">
               <div class="col-sm-12">
-                @if(isset($admins) && count($admins) > 1)
+                @if(isset($admins) && count($admins) > 0)
                 <table id="example2" class="table table-bordered table-hover dataTable dtr-inline">
                   <thead>
                     <tr role="row">                  
