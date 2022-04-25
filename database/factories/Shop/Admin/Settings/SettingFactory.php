@@ -8,6 +8,11 @@ use Illuminate\Support\Str;
 
 class SettingFactory extends Factory
 {
+    /**
+     * Table associated with the factory
+     *
+     * @var Setting
+     */
     protected $model = Setting::class;
 
     public function definition()
