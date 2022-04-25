@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Shop\Admin\Information\Services;
 
 class InformationService
@@ -12,18 +13,18 @@ class InformationService
     {
         $phpinfoDataArray = $this->parsePhpinfoToArray();
         $dataArray = ['serverInfo' => [
-                        __('admin-information.server-info') . ' ' . $phpinfoDataArray['General']['System '],
-                        __('admin-information.php') . ' ' . $phpinfoDataArray['Core']['PHP Version '],
-                        __('admin-information.memory') . ' ' . $phpinfoDataArray['Core']['memory_limit']['local'],
-                        __('admin-information.execute-time') . ' ' . $phpinfoDataArray['Core']['max_execution_time']['local'],
-                        __('admin-information.max-upload-size') . ' ' . $phpinfoDataArray['Core']['max_file_uploads']['local'] . 'MB',
+                        __('admin-information.information-server-info') . ' ' . $phpinfoDataArray['General']['System '],
+                        __('admin-information.information-php') . ' ' . $phpinfoDataArray['Core']['PHP Version '],
+                        __('admin-information.information-memory') . ' ' . $phpinfoDataArray['Core']['memory_limit']['local'],
+                        __('admin-information.information-execute-time') . ' ' . $phpinfoDataArray['Core']['max_execution_time']['local'],
+                        __('admin-information.information-max-upload-size') . ' ' . $phpinfoDataArray['Core']['max_file_uploads']['local'] . 'MB',
                     ],
                     'storeInfo' => [
-                        __('admin-information.laravel-version') . ' ' . app()->version(),
-                        __('admin-information.store-url') . ' ' . url('/'),
-                        __('admin-information.current-template'),
+                        __('admin-information.information-laravel-version') . ' ' . app()->version(),
+                        __('admin-information.information-store-url') . ' ' . url('/'),
+                        __('admin-information.information-current-template'),
                     ],
-                    'clientAgent' => __('admin-information.client') . ' ' . $_SERVER["HTTP_USER_AGENT"],
+                    'clientAgent' => __('admin-information.information-client') . ' ' . $_SERVER["HTTP_USER_AGENT"],
         ];
         return $dataArray;
     }
