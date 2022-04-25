@@ -1,4 +1,5 @@
 @extends('layouts.admin-layouts.app')
+@section('title', 'Системная информация')
 @section('content')
 <div class="content-wrapper">
 @include('layouts.admin-layouts.content-header', ['h1' => 'Системная информация', 'breadcrumb' => 'information'])
