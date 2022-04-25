@@ -118,7 +118,7 @@ class CustomerFeatureTest extends TestCase
             ])
             ->assertStatus(302)
             ->assertRedirect(session()->previousUrl())
-            ->assertSessionHasErrors(['email' => __('admin-customers.email-email')]);
+            ->assertSessionHasErrors(['email' => __('admin-customers.customer-email-email')]);
     }
 
     /** @test **/
@@ -136,7 +136,7 @@ class CustomerFeatureTest extends TestCase
             ])
             ->assertStatus(302)
             ->assertRedirect(session()->previousUrl())
-            ->assertSessionHasErrors(['phone' => __('admin-customers.phone-regex')]);
+            ->assertSessionHasErrors(['phone' => __('admin-customers.customer-phone-regex')]);
     }
 
     /** @test **/
@@ -154,7 +154,7 @@ class CustomerFeatureTest extends TestCase
             ])
             ->assertStatus(302)
             ->assertRedirect(session()->previousUrl())
-            ->assertSessionHasErrors(['first_name' => __('admin-customers.first_name-required')]);
+            ->assertSessionHasErrors(['first_name' => __('admin-customers.customer-firstName-required')]);
     }
 
     /** @test **/
@@ -172,7 +172,7 @@ class CustomerFeatureTest extends TestCase
             ])
             ->assertStatus(302)
             ->assertRedirect(session()->previousUrl())
-            ->assertSessionHasErrors(['last_name' => __('admin-customers.last_name-required')]);
+            ->assertSessionHasErrors(['last_name' => __('admin-customers.customer-lastName-required')]);
     }
 
     /** @test **/
