@@ -1,20 +1,8 @@
 @extends('layouts.admin-layouts.app')
+@section('title', 'Настройки магазина')
 @section('content')
 <div class="content-wrapper">
-  <section class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1>Настройки сайта</h1>
-        </div>
-        <div class="col-sm-6">
-          <div class="breadcrumb float-sm-right">
-            {{ Breadcrumbs::render('general-settings') }}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  @include('layouts.admin-layouts.content-header', ['h1' => 'Системная информация', 'breadcrumb' => 'general-settings'])
   <section class="content">
     <div class="card card-default">
       <div class="card-header">
@@ -26,9 +14,8 @@
         @include('admin-templates.info-messages')
         <div class="callout callout-warning" style="background:#F5E1B9">
           <h5><i class="icon fas fa-info"></i> Обратите внимание!</h5>
-          - Meta-поля не обязательны к заполнению, но для лучшего ранжирования в выдаче поисковых систем их лучше заполнить.
-          Также не рекомендуется выходить за рамки допустимой длины (она указана возле каждого поля).<br>
-          - Также настоятельно рекомендуется загрузить логотип магазина (в противном случае будет выведена стандартная картинка-заглушка).
+          - Настоятельно рекомендуется загрузить логотип магазина (в противном случае будет выведена стандартная картинка-заглушка).<br>
+          - Поле 'Email администратора' обязательно к заполнению.
         </div>
       <div class="row">
         <div class="col-md-6">
@@ -42,15 +29,9 @@
             </div>                            
           </div>
           <div class="form-group">
-            <label>Alias админ-панели</label>
+            <label>Email администратора<span class="required-field">*</span></label>
             <div class="input-group mb-3">
-              <input type="text" class="form-control" name="admin_page" value="{{ $settingsList['admin_page'] }}">
-            </div>    
-          </div>
-          <div class="form-group">
-            <label>Email администратора</label>
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" name="admin_email" value="{{ $settingsList['admin_email'] }}">
+              <input type="text" id="email" class="form-control" name="admin_email" value="{{ $settingsList['admin_email'] }}" required>
             </div>
           </div>
           <div class="form-group">
@@ -68,15 +49,73 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>Логотип магазина</label>
-            <div class="custom-file">
-              <input type="file" class="custom-file-input" id="customFile" name="store_logo">
-              <label class="custom-file-label" for="customFile" data-browse="Выберите файл"></label>
-            </div>
-            @if($settingsList['store_logo'] !== '')
+              <div class="col-sm-10">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="customFile" name="store_logo" lang="ru">
+                  <label class="custom-file-label" for="customFile" data-browse="Выберите файл"></label>
+                </div>
+              </div>
+              @if($settingsList['store_logo'] !== '')
               <div style="width:100px;margin-top:10px;">
                 <img src="{{ url($settingsList['store_logo']) }}">
               </div>
-            @endif
+              @endif
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-dark" id="save-button">
+      <i class="fas fa-save"></i><br>  Сохранить
+    </button>
+    </form>
+    </div>
+    </div>
+    <div class="card card-default">
+      <div class="card-header">
+        <h3 class="card-title">
+        <i class="fas fa-cogs"></i> Настройки админки
+      </h3>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <form class="form-horizontal" method="POST" action="{{ route('admin.settings.store') }}">
+          {{ csrf_field() }}
+          <div class="form-group">
+            <label>Кол-во элементов на странице</label>
+            <div class="input-group mb-3">
+              <input type="hidden" name="target" value="admin_settings">
+              <input type="text" class="form-control" name="items_per_page" value="{{ $settingsList['items_per_page'] }}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-dark" id="save-button">
+      <i class="fas fa-save"></i><br>  Сохранить
+    </button>
+    </form>
+    </div>
+    </div>
+    <div class="card card-default">
+      <div class="card-header">
+        <h3 class="card-title">
+        <i class="fas fa-cogs"></i> Настройки пользователей
+      </h3>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <form class="form-horizontal" method="POST" action="{{ route('admin.settings.store') }}">
+          {{csrf_field()}}
+          <div class="form-group">
+            <label>Длина пароля (не менее 6-ти символов)</label>
+            <div class="input-group mb-3">
+              <input type="hidden" name="target" value="user_settings">
+              <input type="text" class="form-control" name="pwd_length" value="{{ $settingsList['pwd_length'] }}">
+            </div>
           </div>
         </div>
       </div>
@@ -90,4 +129,13 @@
     </div>
   </section>
 </div>
+@push('settings')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="{{ url('admin-template/dist/js/input-mask.js') }}"></script>
+<script>
+  $(document).ready(function(){
+    $("#email").inputmask("email");
+  });
+</script>
+@endpush
 @endsection
