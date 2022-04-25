@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Shop\Admin\Settings\Services;
 
 use App\Shop\Admin\Settings\Setting;
@@ -21,7 +22,7 @@ class SettingsService extends BaseService
     }
 
     /**
-     * Get all settings to array
+     * Get all settings
      *
      * @return array
      */
@@ -33,7 +34,23 @@ class SettingsService extends BaseService
                 ->pluck('value', 'setting')
                 ->toArray();
     }
-    
+
+    /**
+     * Get single setting
+     *
+     * @param  string $value
+     *
+     * @return array
+     */
+    public function getSettingValue(string $value): array
+    {
+        return $this
+                ->model
+                ->where('setting', $value)
+                ->pluck('value', 'setting')
+                ->toArray();
+    }
+
     /**
      * Save settings
      *
