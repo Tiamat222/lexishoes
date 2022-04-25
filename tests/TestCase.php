@@ -95,9 +95,10 @@ abstract class TestCase extends BaseTestCase
     private function generateSettings(): void
     {
         $generalSettings = [
-            'items_per_page' => 2,
+            'items_per_page' => 1,
             'store_logo' => '',
-            'store_title' => ''
+            'store_title' => '',
+            'pwd_length' => 6
         ];
 
         foreach($generalSettings as $key => $value) {
