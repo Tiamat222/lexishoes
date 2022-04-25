@@ -1,8 +1,11 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Shop\Admin\Log\Services\LogService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class LogController extends Controller
 {    
@@ -34,23 +37,25 @@ class LogController extends Controller
     /**
      * Show log files content
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
-        $logs = $this->logService->getLogfilesContent($this->pathToLogFiles);
-        return view('admin-templates.settings.log', compact('logs'));
+        return view('admin-templates.settings.log', [
+            'logs' => $this->logService->getLogfilesContent($this->pathToLogFiles)
+        ]);
     }
     
     /**
      * Clear log files
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function clearLogFile($param)
+    public function clearLogFile(string $param): RedirectResponse
     {
-        if($this->logService->clearLogFile($this->pathToLogFiles . '/' . $param)) {
-            return redirect()->route('admin.settings.log.index')->with('success_message', $param . ' ' . __('admin-log.success'));
-        }
+        $this->logService->clearLogFile($this->pathToLogFiles . '/' . $param);
+        return redirect()
+            ->route('admin.settings.log.index')
+            ->with('success_message', $param . ' ' . __('admin-log.log-success'));
     }
 }
