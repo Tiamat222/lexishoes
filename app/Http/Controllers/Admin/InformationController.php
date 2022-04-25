@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Shop\Admin\Information\Services\InformationService;
+use Illuminate\View\View;
 
 class InformationController extends Controller
 {    
@@ -27,9 +28,9 @@ class InformationController extends Controller
     /**
      * Show system info
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         return view('admin-templates.settings.information',[
             'dataArray' => $this->informationService->getData()
