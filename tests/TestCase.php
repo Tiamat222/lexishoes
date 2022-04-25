@@ -95,6 +95,8 @@ abstract class TestCase extends BaseTestCase
     private function generateSettings(): void
     {
         $generalSettings = [
+            'admin_email' => 'admin@email.com',
+            'site_language' => 'ru',
             'items_per_page' => 1,
             'store_logo' => '',
             'store_title' => '',
