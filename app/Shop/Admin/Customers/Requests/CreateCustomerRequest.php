@@ -49,7 +49,7 @@ class CreateCustomerRequest extends FormRequest
             ],
             'password' => [
                 'required',
-                'min:6'
+                'min:' . get_setting('pwd_length')
             ]
         ];
     }

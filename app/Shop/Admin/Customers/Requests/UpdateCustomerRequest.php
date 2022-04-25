@@ -50,7 +50,7 @@ class UpdateCustomerRequest extends FormRequest
             ],
             'password' => [
                 'nullable',
-                'min:6'
+                'min:' . get_setting('pwd_length')
             ]
         ];
     }
