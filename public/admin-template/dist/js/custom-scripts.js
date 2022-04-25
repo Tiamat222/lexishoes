@@ -61,3 +61,9 @@ $('.meta-title, .meta-keywords, .meta-description').on('keyup', function(){
             break;
     }
 });
+
+/* Show file name in input */
+$('#customFile').on('change', function(){
+    var filename = $('input[type=file]').val().split('\\').pop();
+    $('.custom-file-label').text(filename);
+});
