@@ -1,15 +1,19 @@
 <?php
+
 namespace App\Shop\Admin\Log\Services;
 
 use App\Shop\Admin\Log\Exceptions\FileNotFoundException;
+use ErrorException;
+use SplFileInfo;
 
 class LogService
 {        
     /**
      * Get content from log files
      *
-     * @throws FileNotFoundException
+     * @param string $pathToFile
      * 
+     * @throws FileNotFoundException
      * @return array
      */
     public function getLogfilesContent(string $pathToFile): array
@@ -19,7 +23,7 @@ class LogService
             $filesArray = scandir($pathToFile);
                 foreach ($filesArray as $value) {
                     if(is_file($pathToFile . '/' . $value)) {
-                        $file = new \SplFileInfo($pathToFile . '/' . $value);
+                        $file = new SplFileInfo($pathToFile . '/' . $value);
                         $extension = $this->getFileExtension($file);
                             if($extension == 'log') {
                                 $fileContent = file_get_contents($file);
@@ -31,19 +35,18 @@ class LogService
                     }
                 }
             return $contentArray;
-        } catch(\ErrorException $e) {
+        } catch(ErrorException $e) {
             throw new FileNotFoundException($e->getMessage());
         }
     }
 
     /**
-     * Delete content from log file
+     * Clear log file
      *
      * @param string $file
      * 
      * @throws ErrorException
      * @throws FileNotFoundException
-     * 
      * @return string
      */
     public function clearLogFile(string $file): bool
@@ -53,8 +56,8 @@ class LogService
                 file_put_contents($file, '');
                 return true;
             }
-            throw new \ErrorException();
-        } catch(\ErrorException $e) {
+            throw new ErrorException();
+        } catch(ErrorException $e) {
             throw new FileNotFoundException($e->getMessage());
         }
   
@@ -67,7 +70,7 @@ class LogService
      * 
      * @return string
      */
-    private function getFileExtension(\SplFileInfo $file): string
+    private function getFileExtension(SplFileInfo $file): string
     {
         return $file->getExtension();
     }
@@ -79,7 +82,7 @@ class LogService
      * 
      * @return string
      */
-    private function getFileName(\SplFileInfo $file): string
+    private function getFileName(SplFileInfo $file): string
     {
         return $file->getFilename();
     }
