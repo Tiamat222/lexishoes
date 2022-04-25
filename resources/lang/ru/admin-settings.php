@@ -1,12 +1,14 @@
 <?php
 
 return [
-    'settings-success' => 'Общие настройки были успешно обновлены',
-    'settings-adminPage-required' => 'Поле "Alias админ-панели" обязательно к заполнению',
-    'settings-adminPage-regex' => 'Alias админ-панели может состоять только из целых чисел, знака "-" и букв латинского алфавита в нижнем регистре',
-    'settings-adminPage-min' => 'Минимальная длина alias админ-панели - 3 символа',
-    'settings-adminEmail-required' => 'Поле "Email администратора" обязательно к заполнению',
-    'settings-adminEmail-email' => 'Email администратора должен быть корректным',
-    'settings-storeLogo-image' => 'Логотип магазина должен быть изображением',
-    'settings-storeLogo-mimes' => 'Поддерживаемые расширения логотипа магазина - jpeg, png, jpg, gif',
+    'settings-success' => 'Настройки были успешно обновлены.',
+    'settings-adminEmail-required' => 'Поле "Email администратора" обязательно к заполнению.',
+    'settings-adminEmail-email' => 'Вы ввели некорректный email.',
+    'settings-storeLogo-image' => 'Разрешено загружать только изображения.',
+    'settings-storeLogo-mimes' => 'Поддерживаемые расширения логотипа магазина - jpeg, png, jpg.',
+    'settings-countPerPage-required' => 'Поле "Кол-во элементов на странице" обязательно к заполнению.',
+    'settings-countPerPage-integer' => 'В поле "Кол-во элементов на странице" можно вводить только целочисленные значения.',
+    'settings-countPerPage-min' => 'Минимальное кол-во элементов на странице - 1.',
+    'settings-pwdLength-required' => 'Поле "Длина пароля" обязательно к заполнению.',
+    'settings-pwdLength-min' => 'Минимальная длина пароля - 6 символов.'
 ];
