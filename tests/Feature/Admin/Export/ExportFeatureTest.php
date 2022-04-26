@@ -9,6 +9,11 @@ class ExportFeatureTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * setUp
+     *
+     * @return void
+     */
     public function setUp(): void
     {
         parent::setUp();
