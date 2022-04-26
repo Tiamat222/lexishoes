@@ -2,20 +2,7 @@
 @section('title', 'Экспорт')
 @section('content')
 <div class="content-wrapper">
-<section class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1>Экспорт</h1>
-        </div>
-        <div class="col-sm-6">
-          <div class="breadcrumb float-sm-right">
-            {{ Breadcrumbs::render('export') }}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  @include('layouts.admin-layouts.content-header', ['h1' => 'Экспорт', 'breadcrumb' => 'export'])
   <section class="content">
     <div class="row">
       <div class="col-12">
