@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Shop\Admin\Export\Services;
 
 class ExportService
