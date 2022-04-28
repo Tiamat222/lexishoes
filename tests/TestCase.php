@@ -118,18 +118,19 @@ abstract class TestCase extends BaseTestCase
         $this->permissionService = new PermissionService(new Permission(), new AdminService(new Admin()));
 
         $permissions = [
-            1 => 'settings',
-            2 => 'log',
-            3 => 'information',
-            4 => 'export',
-            5 => 'import',
-            6 => 'suppliers',
-            7 => 'categories',
-            8 => 'attributes',
-            9 => 'products',
+            1  => 'settings',
+            2  => 'log',
+            3  => 'information',
+            4  => 'export',
+            5  => 'import',
+            6  => 'suppliers',
+            7  => 'categories',
+            8  => 'attributes',
+            9  => 'products',
             10 => 'admin-profile',
             11 => 'customers',
             12 => 'admins',
+            13 => 'orders'
         ];
 
         foreach($permissions as $key => $value) {
@@ -138,7 +139,12 @@ abstract class TestCase extends BaseTestCase
             $this->admin->permissions()->attach($selectedPermission);
         }
     }
-
+    
+    /**
+     * Create test admin
+     *
+     * @return void
+     */
     protected function testAdmin()
     {
         return Admin::factory()->create([
