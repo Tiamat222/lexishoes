@@ -59,6 +59,26 @@
             </li>
           </ul>
         </li>
+        @permission('orders')
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link"><i class="nav-icon fa fa-shopping-cart" aria-hidden="true"></i><p>Заказы<i class="fas fa-angle-left right"></i></p></a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('admin.orders.index') }}" class="nav-link" title="Заказы"><i class="far fa-circle nav-icon"></i><p>Заказы</p></a>
+            </li>
+          </ul>
+        </li>
+        @endpermission
+        @permission('customers')
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link"><i class="nav-icon fas fa-user"></i><p>Заказчики<i class="fas fa-angle-left right"></i></p></a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('admin.customers.index') }}" class="nav-link" title="Заказчики"><i class="far fa-circle nav-icon"></i><p>Заказчики</p></a>
+            </li>
+          </ul>
+        </li>
+        @endpermission
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link"><i class="nav-icon fa fa-cogs"></i><p>Настройки<i class="fas fa-angle-left right"></i></p></a>
           <ul class="nav nav-treeview">
@@ -94,16 +114,6 @@
             @endpermission
           </ul>
         </li>
-        @permission('customers')
-        <li class="nav-item has-treeview">
-          <a href="#" class="nav-link"><i class="nav-icon fas fa-user"></i><p>Заказчики<i class="fas fa-angle-left right"></i></p></a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{ route('admin.customers.index') }}" class="nav-link" title="Заказчики"><i class="far fa-circle nav-icon"></i><p>Заказчики</p></a>
-            </li>
-          </ul>
-        </li>
-        @endpermission
         <li class="nav-header">EXAMPLES</li>
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link"><i class="nav-icon far fa-envelope"></i><p>Mailbox<i class="fas fa-angle-left right"></i></p></a>
