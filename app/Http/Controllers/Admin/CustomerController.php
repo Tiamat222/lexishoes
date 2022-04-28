@@ -8,9 +8,14 @@ use App\Shop\Admin\Customers\Requests\UpdateCustomerRequest;
 use App\Shop\Admin\Customers\Services\CustomerService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use App\Shop\Core\Admin\Traits\PdfTrait;
+use Illuminate\Support\Facades\Mail;
+use App\Shop\Admin\Customers\Email\CustomerEmail;
 
 class CustomerController extends Controller
-{    
+{
+    use PdfTrait;
+
     /**
      * CustomerService instance
      *
@@ -35,7 +40,7 @@ class CustomerController extends Controller
      */
     public function index(): View
     {
-        return view('admin-templates.customers.customers-list', [
+        return view('admin-templates.customers.list', [
             'customers' => $this->customerService->getAllRecordsPaginate(get_setting('items_per_page')),
             'softDeletedCount' => $this->customerService->countRecordsInTrash()
         ]);
@@ -48,7 +53,7 @@ class CustomerController extends Controller
      */
     public function create(): View
     {
-        return view('admin-templates.customers.create-customer', [
+        return view('admin-templates.customers.create', [
             'softDeletedCount' => $this->customerService->countRecordsInTrash()
         ]);
     }
@@ -73,7 +78,7 @@ class CustomerController extends Controller
      */
     public function edit(int $id): View
     {
-        return view('admin-templates.customers.edit-customer', [
+        return view('admin-templates.customers.edit', [
             'customer' => $this->customerService->getRecordById($id)
         ]);
     }
@@ -150,5 +155,38 @@ class CustomerController extends Controller
         return view('admin-templates.customers.trash', [
             'customers' => $this->customerService->getAllSoftDeletedRecords(get_setting('items_per_page'))
         ]);
+    }
+    
+    /**
+     * Show customer details
+     *
+     * @param  int $id
+     * 
+     * @return View
+     */
+    public function show(int $id): View
+    {
+        return view('admin-templates.customers.show', [
+            'customer' => $this->customerService->getRecordById($id),
+            'softDeletedCount' => $this->customerService->countRecordsInTrash()
+        ]);
+    }
+    
+    /**
+     * Send an email with customer details (pdf)
+     *
+     * @param  int $id
+     * 
+     * @return RedirectResponse
+     */
+    public function email(int $id): RedirectResponse
+    {
+        $customer = $this->customerService->getRecordById($id);
+        $linkToPdf = $this->storePdf('admin-templates.customers.pdf', $customer);
+        Mail::to($customer->email)->send(new CustomerEmail($customer));
+        $this->destroyPdf($linkToPdf);
+        return redirect()
+                ->back()
+                ->with('success_message', __('admin-customers.customer-email-success'));
     }
 }
