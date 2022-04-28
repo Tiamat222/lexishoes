@@ -168,6 +168,12 @@ Breadcrumbs::for('trash-customers', function ($trail) {
     $trail->push('Корзина');
 });
 
+// Home > Customers > Show
+Breadcrumbs::for('show-customer', function ($trail) {
+    $trail->parent('customers');
+    $trail->push('Детали заказчика');
+});
+
 // Home > Admins
 Breadcrumbs::for('admins', function ($trail) {
     $trail->parent('home');
