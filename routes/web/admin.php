@@ -57,6 +57,11 @@ Route::group(['middleware' => 'notAutorized'], function () {
             Route::resource('/customers', 'CustomerController');
         });
     });
+    Route::group([], function () {
+        Route::group(['middleware' => 'permission:orders'], function(){
+            Route::resource('/orders', 'OrderController');
+        });
+    });
     Route::group(['prefix' => 'settings', 'as' => 'settings.'], function () {
         Route::get('/information', 'InformationController@index')->middleware('permission:information')->name('information');
         Route::group(['middleware' => 'permission:log', 'as' => 'log.'], function(){
