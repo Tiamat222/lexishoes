@@ -2,10 +2,37 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Shop\Admin\Orders\Services\OrderService;
+use Illuminate\View\View;
+
 class OrderController
-{
-    public function index()
+{    
+    /**
+     * OrderService instance
+     *
+     * @var OrderService
+     */
+    private $orderService;
+    
+    /**
+     * OrderController construct
+     *
+     * @param  OrderService $orderService
+     */
+    public function __construct(OrderService $orderService)
     {
-        return view('admin-templates.orders.list');
+        $this->orderService = $orderService;
+    }
+    
+    /**
+     * Display a listing of the orders.
+     *
+     * @return View
+     */
+    public function index(): View
+    {
+        return view('admin-templates.orders.list', [
+            'orders' => $this->orderService->getAllRecordsPaginate(get_setting('items_per_page'))
+        ]);
     }
 }
