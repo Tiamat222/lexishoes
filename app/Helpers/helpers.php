@@ -2,7 +2,9 @@
 
 use Illuminate\Database\Eloquent\Collection;
 use App\Shop\Admin\Settings\Services\SettingsService;
+use App\Shop\Core\Admin\Base\Exceptions\FileNotFoundException;
 use App\Shop\Admin\Settings\Setting;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
 if(!function_exists("get_setting")) {    
@@ -107,5 +109,27 @@ if(!function_exists("show_avatar")) {
             return $imgArray[1];
         }
         return $imagesLinks;
+    }
+}
+
+if(!function_exists("delete_file")) {
+    /**
+     * Delete file from server
+     *
+     * @param  string $fileLink
+     *
+     * @throws FileNotFoundException
+     * @return bool
+     */
+    function delete_file(string $fileLink): bool
+    {
+        try {
+            if(File::delete($fileLink)) {
+                return true;
+            }
+            return false;
+        } catch(Exception $e) {
+            throw new FileNotFoundException($e->getMessage());
+        }
     }
 }
