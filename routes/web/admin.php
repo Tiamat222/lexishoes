@@ -52,6 +52,7 @@ Route::group(['middleware' => 'notAutorized'], function () {
         Route::group(['middleware' => 'permission:customers'], function(){
             Route::get('/categories/restore/{id}', 'CustomerController@restore')->name('customers.restore');
             Route::get('/customers/trash', 'CustomerController@trash')->name('customers.trash');
+            Route::get('/customers/email/{id}', 'CustomerController@email')->name('customers.email');
             Route::delete('/customers/soft-delete/{id}', 'CustomerController@softDelete')->name('customers.delete');
             Route::resource('/customers', 'CustomerController');
         });
