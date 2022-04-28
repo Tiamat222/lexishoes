@@ -2,7 +2,7 @@
 
 namespace App\Shop\Admin\Log\Services;
 
-use App\Shop\Admin\Log\Exceptions\FileNotFoundException;
+use App\Shop\Core\Admin\Base\Exceptions\FileNotFoundException;
 use ErrorException;
 use SplFileInfo;
 
