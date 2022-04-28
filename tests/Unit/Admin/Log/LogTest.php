@@ -3,7 +3,7 @@
 namespace Tests\Unit\Admin\Log;
 
 use App\Shop\Admin\Log\Services\LogService;
-use App\Shop\Admin\Log\Exceptions\FileNotFoundException;
+use App\Shop\Core\Admin\Base\Exceptions\FileNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
