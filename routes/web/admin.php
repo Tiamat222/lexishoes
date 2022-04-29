@@ -59,6 +59,7 @@ Route::group(['middleware' => 'notAutorized'], function () {
     });
     Route::group([], function () {
         Route::group(['middleware' => 'permission:orders'], function(){
+            Route::post('/orders/update-status', 'OrderController@updateStatus')->name('orders.update_status');
             Route::resource('/orders', 'OrderController');
         });
     });
