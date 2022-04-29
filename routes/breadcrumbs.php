@@ -206,6 +206,12 @@ Breadcrumbs::for('trash-admins', function ($trail) {
 
 // Home > Orders
 Breadcrumbs::for('orders', function ($trail) {
-    $trail->parent('admins');
+    $trail->parent('home');
     $trail->push('Список заказов', route('admin.orders.index'));
+});
+
+// Home > Orders > Details
+Breadcrumbs::for('order-details', function ($trail) {
+    $trail->parent('orders');
+    $trail->push('Детали заказа');
 });
