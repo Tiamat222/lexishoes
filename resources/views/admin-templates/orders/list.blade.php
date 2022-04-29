@@ -31,7 +31,7 @@
                       <th class="th-middle">ID</th>
                       <th class="th-middle"># заказа</th>
                       <th class="th-middle">Заказчик</th>
-                      <th class="th-middle">Адрес доставки</th>
+                      <th class="th-middle">Комментарий</th>
                       <th class="th-middle">Итоговая цена</th>
                       <th class="th-middle">Статус заказа</th>
                       <th class="th-middle">Дата заказа</th>
@@ -43,8 +43,14 @@
                     <tr role="row" class="odd">
                       <td class="th-middle" style="width:40px;">{{ $order->id }}</td>
                       <td class="th-middle" style="width:40px;">{{ $order->order_id }}</td>
-                      <td class="th-middle"></td>
-                      <td class="th-middle"></td>
+                      <td class="th-middle">
+                          @foreach($order->customers as $customer)
+                            {{ $customer->first_name . ' ' . $customer->last_name }}
+                          @endforeach
+                      </td>
+                      <td class="th-middle">
+
+                      </td>
                       <td class="th-middle" style="width:100px;">{{ $order->total_price }}</td>
                       <td class="th-middle" style="width:250px;">
                         @if($order->status === 0)
