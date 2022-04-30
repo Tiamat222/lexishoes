@@ -48,7 +48,7 @@ class OrderController
     public function edit(int $id): View
     {
         return view('admin-templates.orders.edit', [
-            'order' => $this->orderService->getRecordById($id),
+            'order' => $this->orderService->getOrderById($id),
             'status' => $this->orderService->productStatus()
         ]);
     }
