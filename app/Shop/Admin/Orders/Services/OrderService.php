@@ -34,6 +34,13 @@ class OrderService extends BaseService
         return $orders;
     }
 
+    public function getOrderById(int $id)
+    {
+        $order = $this->getRecordById($id);
+        $order->load('customers');
+        return $order;
+    }
+
     /**
      * List of product status
      *
