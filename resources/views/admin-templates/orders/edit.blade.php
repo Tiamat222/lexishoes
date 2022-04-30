@@ -39,9 +39,6 @@
                     <a href="#" onclick="window.print()" class="btn btn-block btn-default" style="width:180px;float:left;margin-left:5px;"><i class="fa fa-print"></i> Распечатать заказ</a>
                   @endif
                 </div>
-                <form action="" method="post">
-                  {{ csrf_field() }}
-                  {{ method_field('PUT') }}
               </div>
             </div>
             <div class="row" style="margin-top:10px;">
@@ -76,7 +73,30 @@
                     @endif
                   </div>
                 </div>
-                <!-- start new block -->
+                <div class="card card-secondary">
+                  <div class="card-header">
+                    <h3 class="card-title">Внутренний комментарий к заказу</h3>
+                  </div>
+                  <div class="card-body box-profile">
+                    <form action="{{ route('admin.orders.save_comment', $order->id) }}" method="POST">
+                      {{ csrf_field() }}
+                      <textarea class="inner-order-comment" name="comment" style="width:100%;border:1px solid #DCDCDA;border-radius:5px;"></textarea>
+                      <button type="submit" class="btn btn-block btn-default" style="width:200px;">Добавить комментарий</button>
+                    </form>
+                    <br>
+                    @if(isset($order->comments) && count($order->comments) > 0)
+                    <ul class="list-group list-group-unbordered mb-3">
+                      @foreach($order->comments as $comment)
+                        <li class="list-group-item">
+                          <b>{{ $comment->admin_login }} ({{ $comment->created_at }})</b><p>{{ $comment->comment }}</p>
+                        </li>
+                      @endforeach
+                    </ul>
+                    @endif
+                  </div>
+                </div>
+
+
               </div>
             </div>
           </div>
@@ -84,7 +104,6 @@
             <button type="submit" class="btn btn-dark" id="save-button">
               <i class="fas fa-save" style="font-size: 40px;"></i><br>  Сохранить
             </button>
-          </form>
           </div>
         </div>
       </div>
