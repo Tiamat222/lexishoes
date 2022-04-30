@@ -44,6 +44,41 @@
                   {{ method_field('PUT') }}
               </div>
             </div>
+            <div class="row" style="margin-top:10px;">
+              <div class="col-md-3">
+                <div class="card card-secondary">
+                  <div class="card-header">
+                    <h3 class="card-title">Заказчик</h3>
+                  </div>
+                  <div class="card-body box-profile">
+                    @if(isset($order->customers) && count($order->customers) == 1)
+                      @foreach($order->customers as $customer)
+                      <h3 class="profile-username text-center">{{ $customer->first_name . ' ' . $customer->last_name }}</h3>
+                      <ul class="list-group list-group-unbordered mb-3">
+                        <li class="list-group-item">
+                          <b>Email</b> <span class="float-right">{{ $customer->email }}</span>
+                        </li>
+                        <li class="list-group-item">
+                          <b>Тел.</b> <span class="float-right">{{ $customer->phone }}</span>
+                        </li>
+                        <li class="list-group-item">
+                          <b>Доп тел.</b> <span class="float-right">{{ ($customer->dop_phone) ? $customer->dop_phone : 'Отсутствует' }}</span>
+                        </li>
+                        <li class="list-group-item">
+                          <b>Адрес доставки</b><p>{{ $customer->address }}</p>
+                        </li>
+                        <li class="list-group-item">
+                          <b>Комментарий заказчика</b><p>{{ $customer->comment }}</p>
+                        </li>
+                      </ul>
+                      <a href="{{ route('admin.customers.show', $customer->id) }}" class="btn btn-secondary btn-block"><b>Все данные заказчика</b></a>
+                      @endforeach
+                    @endif
+                  </div>
+                </div>
+                <!-- start new block -->
+              </div>
+            </div>
           </div>
           <div class="card-footer">
             <button type="submit" class="btn btn-dark" id="save-button">
