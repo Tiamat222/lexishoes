@@ -9,7 +9,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Exception;
 
 class OrderService extends BaseService
-{    
+{
     /**
      * OrderService constructor
      *
@@ -34,10 +34,18 @@ class OrderService extends BaseService
         return $orders;
     }
 
-    public function getOrderById(int $id)
+    /**
+     * Get order by id
+     *
+     * @param  int $id
+     *
+     * @return Order
+     */
+    public function getOrderById(int $id): Order
     {
         $order = $this->getRecordById($id);
         $order->load('customers');
+        $order->load('comments');
         return $order;
     }
 
