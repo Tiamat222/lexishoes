@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Shop\Admin\OrderComments\Requests\CreateOrderCommentRequest;
+use App\Shop\Admin\OrderComments\Services\OrderCommentService;
 use App\Shop\Admin\Orders\Services\OrderService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -15,15 +17,23 @@ class OrderController
      * @var OrderService
      */
     private $orderService;
-    
+
+    /**
+     * OrderCommentService instance
+     *
+     * @var OrderCommentService
+     */
+    private $orderCommentService;
+
     /**
      * OrderController construct
      *
      * @param  OrderService $orderService
      */
-    public function __construct(OrderService $orderService)
+    public function __construct(OrderService $orderService, OrderCommentService $orderCommentService)
     {
         $this->orderService = $orderService;
+        $this->orderCommentService = $orderCommentService;
     }
     
     /**
@@ -66,5 +76,21 @@ class OrderController
         return redirect()
                 ->back()
                 ->with('success_message', __('admin-orders.order-status-change-success'));
+    }
+    
+    /**
+     * Save inner comment
+     *
+     * @param  CreateOrderCommentRequest $request
+     * @param  int $id
+     *
+     * @return void
+     */
+    public function saveComment(CreateOrderCommentRequest $request, int $id)
+    {
+        $this->orderCommentService->store($request->comment, $id);
+        return redirect()
+                ->back()
+                ->with('success_message', __('admin-orders.order-save-comment-success'));
     }
 }
