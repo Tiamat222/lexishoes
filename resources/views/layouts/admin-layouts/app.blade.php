@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="{{ url('admin-template/dist/css/adminlte.min.css') }}">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-  <script>tinymce.init({selector:'textarea:not(.log-area)'});</script>
+  <script>tinymce.init({selector:'textarea:not(.log-area)', selector:'textarea:not(.inner-order-comment)'});</script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <div class="wrapper">
