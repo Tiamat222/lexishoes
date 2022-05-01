@@ -1,21 +1,8 @@
 @extends('layouts.admin-layouts.app')
-@section('title', 'Список атрибутов товаров')
+@section('title', 'Список доступных атрибутов')
 @section('content')
 <div class="content-wrapper">
-  <section class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1>Список атрибутов</h1>
-        </div>
-        <div class="col-sm-6">
-          <div class="breadcrumb float-sm-right">
-            {{ Breadcrumbs::render('attributes') }}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  @include('layouts.admin-layouts.content-header', ['h1' => 'Список доступных атрибутов', 'breadcrumb' => 'attributes'])
   <section class="content">
     <div class="row">
       <div class="col-12">
@@ -40,7 +27,7 @@
               @if(count($allAttributes) > 0)
               <div class="callout callout-warning" style="background:#F5E1B9">
                 <h5><i class="icon fas fa-info"></i> Обратите внимание!</h5>
-                - <strong>При удалении атрибута также будут удалены все его значения (безвозвратно)</strong>
+                - При удалении атрибута также будут удалены все его значения (безвозвратно)
               </div>
               @endif
             <div class="row">
@@ -62,7 +49,7 @@
                       <td class="th-middle"><a href="{{ route('admin.catalog.attributes.edit', $attribute->id) }}" title="Редактировать атрибут">{{ $attribute->name }}</a></td>
                       <td class="th-middle" style="width:100px;">
                         @if($attribute->count !== 0)
-                          <a href="{{ route('admin.catalog.attribute-values.valuesList', $attribute->id) }}" title="Список значение">{{ $attribute->count }}</a>
+                          <a href="{{ route('admin.catalog.attribute-values.valuesList', $attribute->id) }}" title="Значения атрибута">{{ $attribute->count }}</a>
                         @else
                           {{ $attribute->count }}
                         @endif
@@ -74,7 +61,7 @@
                         <form action="{{ route('admin.catalog.attributes.destroy', $attribute->id) }}" method="POST">
                           {{ csrf_field() }}
                           {{ method_field('DELETE') }}
-                          <button type="submit" class="btn btn-block btn-secondary btn-sm in-list-del" title="Удалить">
+                          <button type="submit" class="btn btn-block btn-secondary btn-sm in-list-del" title="Удалить атрибут">
                             <i class="fas fa-trash"></i>
                           </button>
                         </form>
@@ -104,7 +91,4 @@
     </div>
   </section>
 </div>
-@push('attribute-values')
-<script src="{{ url('admin-template/dist/js/pages/admin/attribute.js') }}"></script>
-@endpush
 @endsection
