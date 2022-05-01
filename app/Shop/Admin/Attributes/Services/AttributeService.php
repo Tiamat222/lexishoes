@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Shop\Admin\Attributes\Services;
 
 use App\Shop\Admin\Attributes\Attribute;
@@ -23,49 +24,55 @@ class AttributeService extends BaseService
         $this->model = $attribute;
     }
 
-    public function getAllAttributes(int $pagination)
+    /**
+     * Get all attributes
+     *
+     * @return LengthAwarePaginator
+     */
+    public function getAllAttributes(): LengthAwarePaginator
     {
         $attributeValueService = new AttributeValueService(new AttributeValue());
-        $allAttributes = $this->getAllEntitiesPaginate(3);
+        $allAttributes = $this->getAllRecordsPaginate(get_setting('items_per_page'));
         foreach($allAttributes as $attribute) {
             $attribute->count = $attributeValueService->countValues($attribute->id);
         }
         return $allAttributes;
     }
-    
+
     /**
      * Store new attribute
      *
      * @param  string $name
+     *
      * @throws CreateAttributeErrorException
-     * 
      * @return bool
      */
-    public function store(string $name): bool
+    public function store(string $attributeName): bool
     {
         try {
             $attribute = new Attribute();
-            $attribute->name = $name;
+            $attribute->name = $attributeName;
             $attribute->save();
             return true;
         } catch(QueryException $e) {
             throw new CreateAttributeErrorException($e->getMessage());
         }
     }
-    
+
     /**
      * Update attribute
      *
      * @param  array $data
+     *
      * @throws UpdateAttributeErrorException
-     * 
      * @return bool
      */
     public function update(array $data): bool
     {
         try {
-            $attribute = $this->getEntityById($data['id']);
-            $attribute->update(['name' => $data['name']]);
+            $attribute = $this->getRecordById($data['id']);
+            $attribute->name = $data['name'];
+            $attribute->update();
             return true;
         } catch(QueryException $e) {
             throw new UpdateAttributeErrorException($e->getMessage());
@@ -81,8 +88,8 @@ class AttributeService extends BaseService
      */
     public function getValues(int $id): LengthAwarePaginator
     {
-        $attribute = $this->getEntityById($id);
-        return $attribute->values()->paginate(3);
+        $attribute = $this->getRecordById($id);
+        return $attribute->values()->paginate(get_setting('items_per_page'));
     }
     
     /**
