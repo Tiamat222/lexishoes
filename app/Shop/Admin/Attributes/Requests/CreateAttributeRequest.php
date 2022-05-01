@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Shop\Admin\Attributes\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
