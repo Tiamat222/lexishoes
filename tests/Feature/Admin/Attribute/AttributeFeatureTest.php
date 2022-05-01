@@ -1,4 +1,5 @@
 <?php
+
 namespace Tests\Feature\Admin\Attribute;
 
 use App\Shop\Admin\Attributes\Attribute;

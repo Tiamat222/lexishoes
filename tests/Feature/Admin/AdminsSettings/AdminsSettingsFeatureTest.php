@@ -10,7 +10,6 @@ use App\Shop\Admin\Permissions\Services\PermissionService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Hash;
 
 class AdminsSettingsFeatureTest extends TestCase
 {
@@ -31,14 +30,6 @@ class AdminsSettingsFeatureTest extends TestCase
             new PermissionService(new Permission(), 
             new AdminService(new Admin())))
         );
-
-        $this->testAdmin = Admin::factory()->create([
-            'id' => 2,
-            'login' => 'Test admin',
-            'email' => 'testEmail@gmail.com',
-            'telephone' => '+38(999) 999-99-99',
-            'password' => Hash::make('password')
-        ]);
     }
 
     /** @test **/
@@ -47,9 +38,9 @@ class AdminsSettingsFeatureTest extends TestCase
         $this
             ->get(route('admin.settings.admins.index'))
             ->assertStatus(200)
-            ->assertSee($this->testAdmin->login)
-            ->assertSee($this->testAdmin->email)
-            ->assertSee($this->testAdmin->telephone)
+            ->assertSee($this->admin->login)
+            ->assertSee($this->admin->email)
+            ->assertSee($this->admin->telephone)
             ->assertViewHas('admins')
             ->assertViewHas('adminsInTrash');
     }
@@ -86,11 +77,11 @@ class AdminsSettingsFeatureTest extends TestCase
     public function admin_edit_page_can_be_shown()
     {
         $this
-            ->get(route('admin.settings.admins.edit', $this->testAdmin->id))
+            ->get(route('admin.settings.admins.edit', $this->admin->id))
             ->assertStatus(200)
-            ->assertSee($this->testAdmin->login)
-            ->assertSee($this->testAdmin->email)
-            ->assertSee($this->testAdmin->telephone)
+            ->assertSee($this->admin->login)
+            ->assertSee($this->admin->email)
+            ->assertSee($this->admin->telephone)
             ->assertViewHas('adminsInTrash')
             ->assertViewHas('permissions');
     }
@@ -99,8 +90,8 @@ class AdminsSettingsFeatureTest extends TestCase
     public function admin_can_be_updated()
     {
         $this
-            ->put(route('admin.settings.admins.update', $this->testAdmin->id), [
-                'id' => $this->testAdmin->id,
+            ->put(route('admin.settings.admins.update', $this->admin->id), [
+                'id' => $this->admin->id,
                 'login' => 'Test admin',
                 'email' => 'testEmail@gmail.com',
                 'telephone' => '+38(999) 999-99-99',
@@ -115,26 +106,26 @@ class AdminsSettingsFeatureTest extends TestCase
     /** @test **/
     public function admins_trash_page_can_be_shown()
     {
-        $this->testAdmin->deleted_at = Carbon::now();
-        $this->testAdmin->save();
+        $this->admin->deleted_at = Carbon::now();
+        $this->admin->save();
 
         $this
             ->get(route('admin.settings.admins.trash'))
             ->assertStatus(200)
-            ->assertSee($this->testAdmin->login)
-            ->assertSee($this->testAdmin->email)
-            ->assertSee($this->testAdmin->telephone)
+            ->assertSee($this->admin->login)
+            ->assertSee($this->admin->email)
+            ->assertSee($this->admin->telephone)
             ->assertViewHas('adminsInTrash');
     }
 
     /** @test **/
     public function admin_can_be_soft_deleted()
     {
-        $this->testAdmin->deleted_at = null;
-        $this->testAdmin->save();
+        $this->admin->deleted_at = null;
+        $this->admin->save();
 
         $this
-            ->delete(route('admin.settings.admins.delete', $this->testAdmin->id))
+            ->delete(route('admin.settings.admins.delete', $this->admin->id))
             ->assertStatus(302)
             ->assertSessionHasNoErrors()
             ->assertRedirect(route('admin.settings.admins.index'))
@@ -144,11 +135,11 @@ class AdminsSettingsFeatureTest extends TestCase
     /** @test **/
     public function admin_can_be_force_deleted()
     {
-        $this->testAdmin->deleted_at = Carbon::now();
-        $this->testAdmin->save();
+        $this->admin->deleted_at = Carbon::now();
+        $this->admin->save();
 
         $this
-            ->delete(route('admin.settings.admins.destroy', $this->testAdmin->id))
+            ->delete(route('admin.settings.admins.destroy', $this->admin->id))
             ->assertStatus(302)
             ->assertSessionHasNoErrors()
             ->assertRedirect(route('admin.settings.admins.trash'))
@@ -158,11 +149,11 @@ class AdminsSettingsFeatureTest extends TestCase
     /** @test **/
     public function soft_deleted_admin_can_be_restored()
     {
-        $this->testAdmin->deleted_at = Carbon::now();
-        $this->testAdmin->save();
+        $this->admin->deleted_at = Carbon::now();
+        $this->admin->save();
 
         $this
-            ->get(route('admin.settings.admins.restore', $this->testAdmin->id))
+            ->get(route('admin.settings.admins.restore', $this->admin->id))
             ->assertStatus(302)
             ->assertSessionHasNoErrors()
             ->assertRedirect(route('admin.settings.admins.trash'))
@@ -182,8 +173,8 @@ class AdminsSettingsFeatureTest extends TestCase
             ->assertViewHas('adminsInTrash')
             ->assertViewHas('adminsLogins')
             ->assertViewHas('adminId')
-            ->assertSee($this->testAdmin->id)
-            ->assertSee($this->testAdmin->login);
+            ->assertSee($this->admin->id)
+            ->assertSee($this->admin->login);
     }
 
     /** @test **/
@@ -199,7 +190,7 @@ class AdminsSettingsFeatureTest extends TestCase
             ->assertViewHas('adminsInTrash')
             ->assertViewHas('adminsLogins')
             ->assertViewHas('adminId')
-            ->assertSee($this->testAdmin->id)
-            ->assertSee($this->testAdmin->login);
+            ->assertSee($this->admin->id)
+            ->assertSee($this->admin->login);
     }
 }

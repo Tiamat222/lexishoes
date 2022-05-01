@@ -1,4 +1,5 @@
 <?php
+
 namespace Tests\Unit\Admin\Attributes;
 
 use App\Shop\Admin\Attributes\Attribute;
@@ -49,7 +50,7 @@ class AttributeTest extends TestCase
         
         $this->assertTrue($storeAttribute);
 
-        $attribute = $this->attributeService->getEntityById(1);
+        $attribute = $this->attributeService->getRecordById(1);
         $this->assertEquals($attribute->name, 'Test attribute');
     }
 
@@ -63,7 +64,7 @@ class AttributeTest extends TestCase
             'name' => 'Updated name'
         ];
         $updateAttribute = $this->attributeService->update($newData);
-        $attribute = $this->attributeService->getEntityById(1);
+        $attribute = $this->attributeService->getRecordById(1);
         
         $this->assertTrue($updateAttribute);
         $this->assertEquals($attribute->name, 'Updated name');
