@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -6,6 +7,9 @@ use App\Shop\Admin\Attributes\Requests\CreateAttributeRequest;
 use App\Shop\Admin\Attributes\Requests\UpdateAttributeRequest;
 use App\Shop\Admin\Attributes\Services\AttributeService;
 use App\Shop\Admin\AttributeValues\Services\AttributeValueService;
+use Illuminate\Http\RedirectResponse;
+use \Illuminate\Database\Eloquent\Collection;
+use Illuminate\View\View;
 
 class AttributeController extends Controller
 {    
@@ -15,14 +19,14 @@ class AttributeController extends Controller
      * @var AttributeService
      */
     private $attributeService;
-        
+
     /**
      * AttributeValueService instance
      *
      * @var AttributeValueService
      */
     private $attributeValueService;
-    
+
     /**
      * AttributeController constructor
      *
@@ -34,27 +38,27 @@ class AttributeController extends Controller
         $this->attributeService = $attributeService;
         $this->attributeValueService = $attributeValueService;
     }
-        
+ 
     /**
      * Display a listing of the attributes
      *
-     * @return \Illuminate\View\View
-     */    
-    public function index()
+     * @return View
+     */
+    public function index(): View
     {
-        return view('admin-templates.catalog.attributes.attributes-list', [
-            'allAttributes' => $this->attributeService->getAllAttributes(3)
+        return view('admin-templates.catalog.attributes.list', [
+            'allAttributes' => $this->attributeService->getAllAttributes()
         ]);
     }
 
     /**
      * Showing the form for adding a new attribute
      *
-     * @return \Illuminate\View\View
+     * @return View
      */ 
-    public function create()
+    public function create(): View
     {
-        return view('admin-templates.catalog.attributes.create-attribute');
+        return view('admin-templates.catalog.attributes.create');
     }
 
     /**
@@ -62,12 +66,11 @@ class AttributeController extends Controller
      *
      * @param CreateAttributeRequest $request
      * 
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function store(CreateAttributeRequest $request)
+    public function store(CreateAttributeRequest $request): RedirectResponse
     {
         $this->attributeService->store($request->name);
-
         return redirect()
                 ->route('admin.catalog.attributes.index')
                 ->with('success_message', __('admin-attributes.attribute-create-success'));
@@ -78,12 +81,12 @@ class AttributeController extends Controller
      *
      * @param  int $id
      * 
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function edit($id)
+    public function edit(int $id): View
     {
-        return view('admin-templates.catalog.attributes.edit-attribute', [
-            'attribute' => $this->attributeService->getEntityById($id)
+        return view('admin-templates.catalog.attributes.edit', [
+            'attribute' => $this->attributeService->getRecordById($id)
         ]);
     }
     
@@ -92,12 +95,11 @@ class AttributeController extends Controller
      *
      * @param  UpdateAttributeRequest $request
      * 
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function update(UpdateAttributeRequest $request)
+    public function update(UpdateAttributeRequest $request): RedirectResponse
     {
         $this->attributeService->update($request->only(['id', 'name']));
-
         return redirect()
                 ->route('admin.catalog.attributes.edit', $request['id'])
                 ->with('success_message', __('admin-attributes.attribute-update-success'));
@@ -108,12 +110,11 @@ class AttributeController extends Controller
      *
      * @param  int $id
      * 
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): RedirectResponse
     {
         $this->attributeService->destroy($id);
-
         return redirect()
             ->route('admin.catalog.attributes.index')
             ->with('success_message', __('admin-attributes.attribute-destroy-success'));
@@ -122,10 +123,10 @@ class AttributeController extends Controller
     /**
      * Get all product attributes
      *
-     * @return \Illuminate\Database\Eloquent\Collection;
+     * @return Collection
      */
-    public function getAllAttributes()
+    public function getAllAttributes(): Collection
     {
-        return $this->attributeService->getAllEntities(['id', 'name']);
+        return $this->attributeService->getAllRecords(['id', 'name']);
     }
 }
