@@ -91,11 +91,33 @@ class PageController
         ]);
     }
 
-    public function update(UpdatePageRequest $request)
+    /**
+     * Update page data
+     *
+     * @param  UpdatePageRequest $request
+     * 
+     * @return RedirectResponse
+     */
+    public function update(UpdatePageRequest $request): RedirectResponse
     {
         $this->pageService->update($request->data());
         return redirect()
                 ->back()
                 ->with('success_message', __('admin-pages.pages-update-success'));
+    }
+
+    /**
+     * Destroy page
+     *
+     * @param  int $id
+     * 
+     * @return RedirectResponse
+     */
+    public function destroy(int $id): RedirectResponse
+    {
+        $this->pageService->destroyRecord($id);
+        return redirect()
+                ->back()
+                ->with('success_message', __('admin-pages.pages-destroy-success'));
     }
 }
