@@ -48,6 +48,7 @@ Route::group(['middleware' => 'notAutorized'], function () {
             Route::resource('/products', 'ProductController');
         });
         Route::group(['middleware' => 'permission:pages'], function(){
+            Route::post('/pages/create-slug', 'PageController@createSlug');
             Route::resource('/pages', 'PageController');
         });
     });
