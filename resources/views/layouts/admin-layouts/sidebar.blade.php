@@ -57,6 +57,11 @@
             <li class="nav-item">
               <a href="pages/layout/fixed-topnav.html" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Комбинации товаров</p></a>
             </li>
+            @permission('pages')
+            <li class="nav-item">
+              <a href="{{ route('admin.catalog.pages.index') }}" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Страницы</p></a>
+            </li>
+            @endpermission
           </ul>
         </li>
         @permission('orders')
