@@ -15,7 +15,7 @@
                   <div class="card-body">
                     <div class="form-group">
                       <p>Имя файла {{ $key }}</p>
-                      <textarea class="log-area" style="width:100%; height:400px; border:1px solid grey; border-radius:5px;">{{ $value }}</textarea>
+                      <textarea class="exclude" style="width:100%;height:400px;border:1px solid #DCDCDA;border-radius:5px;">{{ $value }}</textarea>
                     </div>
                   </div>
                   <div class="card-footer">
