@@ -37,7 +37,7 @@
                     @foreach($pages as $page)
                     <tr role="row" class="odd">
                       <td class="th-middle">{{ $page->id }}</td>
-                      <td class="th-middle"><a href="{{ $page->title }}" title="{{ $page->title }}">{{ $page->title }}</a></td>
+                      <td class="th-middle"><a href="{{ route('admin.catalog.pages.edit', $page->id) }}" title="{{ $page->title }}">{{ $page->title }}</a></td>
                       <td class="th-middle">{{ $page->slug }}</td>
                       <td class="th-middle">{{ strip_tags(Str::limit($page->text, 150, $end='...')) }}</td>
                       <td class="th-middle">{!! ($page->status === 1) ? '<i class="fa fa-check" aria-hidden="true" style="color: #95cc6b;"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:#ff5450"></i>' !!}</td>
