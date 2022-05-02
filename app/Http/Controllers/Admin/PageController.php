@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Shop\Admin\Pages\Requests\CreatePageRequest;
+use App\Shop\Admin\Pages\Requests\UpdatePageRequest;
 use Illuminate\View\View;
 use App\Shop\Admin\Pages\Services\PageService;
 use Illuminate\Http\RedirectResponse;
@@ -74,5 +75,27 @@ class PageController
     public function createSlug(Request $request): JsonResponse
     {
         return response()->json(['slug' => Str::slug($request['pageTitle'], '-')]);
+    }
+    
+    /**
+     * Showing form for editing page
+     *
+     * @param  int $id
+     * 
+     * @return View
+     */
+    public function edit(int $id): View
+    {
+        return view('admin-templates.catalog.pages.edit', [
+            'page' => $this->pageService->getRecordById($id)
+        ]);
+    }
+
+    public function update(UpdatePageRequest $request)
+    {
+        $this->pageService->update($request->data());
+        return redirect()
+                ->back()
+                ->with('success_message', __('admin-pages.pages-update-success'));
     }
 }
