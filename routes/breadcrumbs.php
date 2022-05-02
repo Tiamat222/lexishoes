@@ -221,3 +221,9 @@ Breadcrumbs::for('pages', function ($trail) {
     $trail->parent('home');
     $trail->push('Список страниц', route('admin.catalog.pages.index'));
 });
+
+// Home > Pages > New Page
+Breadcrumbs::for('new-page', function ($trail) {
+    $trail->parent('pages');
+    $trail->push('Новая страница');
+});
