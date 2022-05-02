@@ -47,6 +47,9 @@ Route::group(['middleware' => 'notAutorized'], function () {
             Route::get('/products/disabled', 'ProductController@disabled')->name('products.disabled');
             Route::resource('/products', 'ProductController');
         });
+        Route::group(['middleware' => 'permission:pages'], function(){
+            Route::resource('/pages', 'PageController');
+        });
     });
     Route::group([], function () {
         Route::group(['middleware' => 'permission:customers'], function(){
