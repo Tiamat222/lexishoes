@@ -227,3 +227,9 @@ Breadcrumbs::for('new-page', function ($trail) {
     $trail->parent('pages');
     $trail->push('Новая страница');
 });
+
+// Home > Pages > Edit Page
+Breadcrumbs::for('edit-page', function ($trail) {
+    $trail->parent('pages');
+    $trail->push('Редактирование страницы');
+});
