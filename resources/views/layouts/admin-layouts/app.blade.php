@@ -43,5 +43,6 @@
   @stack('admin')
   @stack('customers')
   @stack('order')
+  @stack('page')
 </body>
 </html>
