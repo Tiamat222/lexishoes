@@ -215,3 +215,9 @@ Breadcrumbs::for('order-details', function ($trail) {
     $trail->parent('orders');
     $trail->push('Детали заказа');
 });
+
+// Home > Pages
+Breadcrumbs::for('pages', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Список страниц', route('admin.catalog.pages.index'));
+});
