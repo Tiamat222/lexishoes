@@ -8,4 +8,5 @@ return [
     'pages-slug-min'       => 'Минимальная длина slug\'a - 2 символа.',
     'pages-slug-unique'    => 'Страница с таким slug\'ом уже существует. Укажите другой slug.',
     'pages-store-success'  => 'Новая страница была успешно создана.',
+    'pages-update-success' => 'Страница была успешно обновлена.'
 ];
