@@ -30,6 +30,7 @@
                       <th class="th-middle">Slug</th>
                       <th class="th-middle">Текст статьи</th>
                       <th class="th-middle">Статус</th>
+                      <th class="th-middle">Дата создания</th>
                       <th class="th-middle" style="width:100px;">Действия</th>
                     </tr>
                   </thead>
@@ -41,6 +42,7 @@
                       <td class="th-middle">{{ $page->slug }}</td>
                       <td class="th-middle">{{ strip_tags(Str::limit($page->text, 150, $end='...')) }}</td>
                       <td class="th-middle">{!! ($page->status === 1) ? '<i class="fa fa-check" aria-hidden="true" style="color: #95cc6b;"></i>' : '<i class="fa fa-times" aria-hidden="true" style="color:#ff5450"></i>' !!}</td>
+                      <td class="th-middle">{{ $page->created_at->format('d/m/Y') }}</td>
                       <td class="th-middle" style="width:80px;padding-left:18px;">
                         <a class="btn btn-block btn-secondary btn-sm in-list-edit" href="{{ route('admin.catalog.pages.edit', $page->id) }}" title="Редактировать страницу">
                           <i class="fas fa-pencil-alt"></i>
