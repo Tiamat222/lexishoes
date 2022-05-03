@@ -1,20 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-  <title>Big shope A Ecommerce Category Flat Bootstarp Resposive Website Template | Home :: w3layouts</title>
-  <link href="{{ url('front-template/dist/css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all" />
-  <link href="{{ url('front-template/dist/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />	
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-  <script src="{{ url('front-template/dist/js/jquery.min.js') }}"></script>
-</head>
-<body> 
-  <!-- Header -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Home | E-Shopper</title>
+    <link href="{{ url('front-template/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url('front-template/dist/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ url('front-template/dist/css/prettyPhoto.css') }}" rel="stylesheet">
+    <link href="{{ url('front-template/dist/css/price-range.css') }}" rel="stylesheet">
+    <link href="{{ url('front-template/dist/css/animate.css') }}" rel="stylesheet">
+	<link href="{{ url('front-template/dist/css/main.css') }}" rel="stylesheet">
+	<link href="{{ url('front-template/dist/css/responsive.css') }}" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="{{ url('front-template/dist/js/html5shiv.js') }}"></script>
+    <script src="{{ url('front-template/dist/js/respond.min.js') }}"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="{{ url('front-template/dist/images/ico/favicon.ico') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url('front-template/dist/images/ico/apple-touch-icon-144-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ url('front-template/dist/images/ico/apple-touch-icon-114-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ url('front-template/dist/images/ico/apple-touch-icon-72-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" href="{{ url('front-template/dist/images/ico/apple-touch-icon-57-precomposed.png') }}">
+  </head>
+<body>
   @include('layouts.front-layouts.header')
-  <!-- Container -->
-  @include('layouts.front-layouts.container')
-  <!-- Footer -->
+  @yield('content')
   @include('layouts.front-layouts.footer')
+  <script src="{{ url('front-template/dist/js/jquery.js') }}"></script>
+  <script src="{{ url('front-template/dist/js/bootstrap.min.js') }}"></script>
+  <script src="{{ url('front-template/dist/js/jquery.scrollUp.min.js') }}"></script>
+  <script src="{{ url('front-template/dist/js/price-range.js') }}"></script>
+  <script src="{{ url('front-template/dist/js/jquery.prettyPhoto.js') }}"></script>
+  <script src="{{ url('front-template/dist/js/main.js') }}"></script>
 </body>
 </html>
