@@ -33,5 +33,8 @@
   <script src="{{ url('front-template/dist/js/price-range.js') }}"></script>
   <script src="{{ url('front-template/dist/js/jquery.prettyPhoto.js') }}"></script>
   <script src="{{ url('front-template/dist/js/main.js') }}"></script>
+  @stack('auth')
+  @stack('profile')
+  @stack('password')
 </body>
 </html>
