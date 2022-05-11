@@ -6,6 +6,9 @@ use App\Shop\Core\Admin\Base\Exceptions\FileNotFoundException;
 use App\Shop\Admin\Settings\Setting;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use DateTime;
+use Illuminate\Support\Facades\Route;
 
 if(!function_exists("get_setting")) {    
     /**
@@ -79,6 +82,18 @@ if(!function_exists("make_password")) {
     }
 }
 
+if(!function_exists("make_token")) {        
+    /**
+     * Make token
+     * 
+     * @return string
+     */
+    function make_token(): string
+    {
+        return Str::random(64);
+    }
+}
+
 if(!function_exists("show_thumb")) {        
     /**
      * Output thumbnail
@@ -131,5 +146,72 @@ if(!function_exists("delete_file")) {
         } catch(Exception $e) {
             throw new FileNotFoundException($e->getMessage());
         }
+    }
+}
+
+if(!function_exists("show_store_phones")) {
+    /**
+     * Show store phones
+     *
+     * @return string
+     */
+    function show_store_phones(): string
+    {
+        $outputPhones = '';
+        $phones = get_setting('store_phone');
+        $arrayPhones = explode(',', $phones);
+        foreach($arrayPhones as $value) {
+            if($value !== '+38(___) ___-__-__') {
+                $outputPhones .= $value . ', ';
+            }
+        }
+        $outputPhones = substr($outputPhones,0,-2);
+        return $outputPhones;
+    }
+}
+
+if(!function_exists("diff_date")) {
+    /**
+     * Difference between two dates (in days)
+     *
+     * @return int
+     */
+    function diff_date(DateTime $firstDate, DateTime $secondDate): int
+    {
+        return date_diff($firstDate, $secondDate)->days;
+    }
+}
+
+if(!function_exists("check_auth_user")) {
+    /**
+     * Check auth user (customer or admin)
+     *
+     * @return bool
+     */
+    function check_auth_user(string $guard): bool
+    {
+        return auth()->guard($guard)->check();
+    }
+}
+
+if(!function_exists("get_auth_user")) {
+    /**
+     * Get auth user (customer or admin)
+     */
+    function get_auth_user(string $guard)
+    {
+        return auth()->guard($guard)->user();
+    }
+}
+
+if(!function_exists("get_current_route")) {
+    /**
+     * Get current route
+     * 
+     * @return string
+     */
+    function get_current_route(): string
+    {
+        return Route::currentRouteName();
     }
 }
