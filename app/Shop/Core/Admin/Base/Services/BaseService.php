@@ -14,10 +14,10 @@ abstract class BaseService
     protected $model;
 
     /**
-     * Get all entities with pagination
+     * Get all records with pagination
      *
      * @param  int $paginate
-     * 
+     *
      * @return LengthAwarePaginator
      */
     public function getAllRecordsPaginate(int $paginate, string $column = null, string $param = null, string $orderBy = 'id', string $sortBy = 'asc'): LengthAwarePaginator
@@ -29,7 +29,7 @@ abstract class BaseService
     } 
 
     /**
-     * Get all entities
+     * Get all records
      *
      * @return Collection
      */
@@ -42,7 +42,7 @@ abstract class BaseService
     } 
 
     /**
-     * Count entities in trash
+     * Count records in trash
      *
      * @return int
      */
@@ -52,8 +52,21 @@ abstract class BaseService
     }
 
     /**
-     * Get entity by id
-     * 
+     * Count records by field
+     *
+     * @param  string $field
+     * @param  string|int $value
+     *
+     * @return int
+     */
+    public function countRecordsByField(string $field, $value): int
+    {
+        return $this->model->where($field, $value)->count();
+    }
+
+    /**
+     * Get record by id
+     *
      * @param int $id
      * @throws EntityNotFoundException
      */
@@ -67,8 +80,25 @@ abstract class BaseService
     }
 
     /**
-     * Get soft deleted entity by id
-     * 
+     * Get record by field
+     *
+     * @param string $field
+     * @param string string $value
+     *
+     * @throws EntityNotFoundException
+     */
+    public function getRecordByField(string $field, string $value)
+    {
+        try {
+            return $this->model->where($field, $value)->first();
+        } catch(ModelNotFoundException $e) {
+            throw new EntityNotFoundException($e->getMessage());
+        }
+    }
+
+    /**
+     * Get soft deleted record by id
+     *
      * @param int $id
      * @throws EntityNotFoundException
      */
@@ -82,7 +112,7 @@ abstract class BaseService
     }
 
     /**
-     * Get all soft deleted entities with pagination
+     * Get all soft deleted records with pagination
      *
      * @param  int $paginate
      * @return LengthAwarePaginator
@@ -93,7 +123,7 @@ abstract class BaseService
     }
 
     /**
-     * Entity soft delete
+     * Record soft delete
      *
      * @return void
      */
@@ -103,12 +133,12 @@ abstract class BaseService
             abort(404);
         }
     }
-    
+
     /**
      * Destroy record
      *
      * @param  int $id
-     * 
+     *
      * @return void
      */
     public function destroyRecord($id)
@@ -117,7 +147,7 @@ abstract class BaseService
     }
 
     /**
-     * Entity force delete
+     * Record force delete
      *
      * @return bool
      */
@@ -127,7 +157,7 @@ abstract class BaseService
     }
 
     /**
-     * Restore soft deleted entity
+     * Restore soft deleted record
      *
      * @return void
      */
@@ -137,12 +167,12 @@ abstract class BaseService
             abort(404);
         }
     }
-    
+
     /**
-     * Mass restore suppliers from trash (AJAX)
+     * Mass restore records from trash (AJAX)
      *
      * @param  array $data
-     * 
+     *
      * @return bool
      */
     public function restoreAllRecords(array $data): bool
@@ -152,12 +182,12 @@ abstract class BaseService
         }
         return true;
     }
-    
+
     /**
-     * Mass force delete suppliers (AJAX)
+     * Mass force delete records (AJAX)
      *
      * @param  array $data
-     * 
+     *
      * @return bool
      */
     public function forceDeleteAllRecords(array $data): bool
@@ -167,12 +197,12 @@ abstract class BaseService
         }
         return true;
     }
-    
+
     /**
      * Get all records (with soft deleted)
      *
      * @param  array $columns
-     * 
+     *
      * @return array
      */
     public function getAllRecordsWithTrashed(array $columns): array
@@ -184,12 +214,12 @@ abstract class BaseService
                 ->get()
                 ->toArray();
     }
-    
+
     /**
-     * Turn on admin status
+     * Turn on status
      *
      * @param  int $id
-     * 
+     *
      * @return bool
      */
     public function turnOnStatus(int $id): bool
@@ -198,12 +228,12 @@ abstract class BaseService
         $entity->update(['status' => 1]);
         return true;
     }
-    
+
     /**
-     * Turn off admin status
+     * Turn off status
      *
      * @param  int $id
-     * 
+     *
      * @return bool
      */
     public function turnOffStatus(int $id): bool
