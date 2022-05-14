@@ -12,7 +12,7 @@ Route::group([], function () {
     Route::group(['as' => 'register.'], function() {
         Route::post('/register', 'RegisterController@registerNewCustomer')->name('new_customer');
         Route::get('/confirm', 'RegisterController@confirmCustomer')->name('confirm_customer');
-        Route::get('/check-token/{token}/{id}', 'RegisterController@confirmToken')->name('check_token');
+        Route::get('/check-reg-token/{token}/{id}', 'RegisterController@confirmToken')->name('check_token');
         Route::get('/expired-token', 'RegisterController@expiredToken')->name('expired_token');
         Route::post('/resending', 'RegisterController@resending')->name('resending');
     });
@@ -22,9 +22,9 @@ Route::group([], function () {
         Route::post('/update-password', 'ProfileController@updatePassword')->name('update_password');
     });
     Route::group(['as' => 'password.'], function(){
-        Route::get('/forgot-password', 'ForgotPasswordController@forgetPassword')->name('forgot_form');
+        Route::get('/forgot-password', 'ForgotPasswordController@forgotPassword')->name('forgot_form');
         Route::post('/send-email', 'ForgotPasswordController@sendEmail')->name('send_email');
-        Route::get('/check-token/{token}/{id}', 'ForgotPasswordController@confirmToken')->name('check_token');
+        Route::get('/check-pwd-token/{token}/{id}', 'ForgotPasswordController@confirmToken')->name('check_token');
         Route::get('/new-password/{id}', 'ForgotPasswordController@newPassword')->name('new_password');
         Route::post('/change-password', 'ForgotPasswordController@changePassword')->name('change');
     });
