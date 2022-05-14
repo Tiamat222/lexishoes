@@ -31,7 +31,7 @@
 			<input type="text" name="first_name" class="form-control" placeholder="Имя" required>
 			<input type="text" name="last_name" class="form-control" placeholder="Фамилия" required>
 		    <input type="text" name="email" class="form-control" placeholder="Email" required>
-			<input type="text" name="phone" class="form-control" id="phone" placeholder="Тел" required>
+			<input type="text" name="phone" class="form-control" id="phone" placeholder="Телефон" required>
             <div class="password-left">
 			  <input type="password" class="password-register form-control" name="password" placeholder="Пароль" require>
 			</div>
