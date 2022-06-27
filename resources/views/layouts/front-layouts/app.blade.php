@@ -1,21 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Home | E-Shopper</title>
+    <title>@yield('title')</title>
     <link href="{{ url('front-template/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url('front-template/dist/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ url('front-template/dist/css/prettyPhoto.css') }}" rel="stylesheet">
     <link href="{{ url('front-template/dist/css/price-range.css') }}" rel="stylesheet">
     <link href="{{ url('front-template/dist/css/animate.css') }}" rel="stylesheet">
-	<link href="{{ url('front-template/dist/css/main.css') }}" rel="stylesheet">
-	<link href="{{ url('front-template/dist/css/responsive.css') }}" rel="stylesheet">
+	  <link href="{{ url('front-template/dist/css/main.css') }}" rel="stylesheet">
+	  <link href="{{ url('front-template/dist/css/responsive.css') }}" rel="stylesheet">
     <!--[if lt IE 9]>
-    <script src="{{ url('front-template/dist/js/html5shiv.js') }}"></script>
-    <script src="{{ url('front-template/dist/js/respond.min.js') }}"></script>
+      <script src="{{ url('front-template/dist/js/html5shiv.js') }}"></script>
+      <script src="{{ url('front-template/dist/js/respond.min.js') }}"></script>
     <![endif]-->       
     <link rel="shortcut icon" href="{{ url('front-template/dist/images/ico/favicon.ico') }}">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url('front-template/dist/images/ico/apple-touch-icon-144-precomposed.png') }}">
@@ -25,7 +24,17 @@
   </head>
 <body>
   @include('layouts.front-layouts.header')
-  @yield('content')
+  <section>
+		<div class="container">
+      <div class="row">
+        @if(Route::current()->getName() == 'front.index')
+          @include('layouts.front-layouts.slider')
+        @endif
+        @include('layouts.front-layouts.sidebar')
+        @yield('content')
+      </div>
+    </div>
+  </section>
   @include('layouts.front-layouts.footer')
   <script src="{{ url('front-template/dist/js/jquery.js') }}"></script>
   <script src="{{ url('front-template/dist/js/bootstrap.min.js') }}"></script>
