@@ -28,4 +28,7 @@ Route::group([], function () {
         Route::get('/new-password/{id}', 'ForgotPasswordController@newPassword')->name('new_password');
         Route::post('/change-password', 'ForgotPasswordController@changePassword')->name('change');
     });
+    Route::group(['prefix' => 'pages', 'as' => 'pages.'], function(){
+        Route::get('/{slug}', 'PageController@showPage')->name('show');
+    });
 }); 
