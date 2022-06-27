@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Shop\Admin\Categories\Services\CategoryService;
 use App\Shop\Admin\Pages\Services\PageService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
@@ -24,7 +25,7 @@ class FrontTemplateServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(PageService $pageService)
+    public function boot(PageService $pageService, CategoryService $categoryService)
     {
         // Outputting store pages in header
         if(Schema::hasTable('pages')) {
@@ -35,6 +36,11 @@ class FrontTemplateServiceProvider extends ServiceProvider
                 }
             }
             view()->share('pages', pluck_collection_to_array($pagesList, 'title', 'slug'));
+        }
+
+        // Outputting categories in sidebar
+        if(Schema::hasTable('categories')) {
+            view()->share('categories', $categoryService->getParentCategoriesWithChildrens());
         }
     }
 }
