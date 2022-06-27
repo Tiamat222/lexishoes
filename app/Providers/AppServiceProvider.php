@@ -6,6 +6,7 @@ use App\Shop\Admin\Orders\Order;
 use App\Shop\Admin\Orders\Services\OrderService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Eloquent\Collection;
 
 class AppServiceProvider extends ServiceProvider
 {    
@@ -42,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         if(Schema::hasTable('orders')) {
-            view()->share('newOrders', $this->orderService->countRecordsByField('status', 0));
+            view()->share('newOrders', $this->orderService->countRecordsByField('status', '=', 0));
         }
     }
 }
