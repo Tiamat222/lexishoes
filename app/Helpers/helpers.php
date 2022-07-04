@@ -151,21 +151,20 @@ if(!function_exists("delete_file")) {
 
 if(!function_exists("show_store_phones")) {
     /**
-     * Show store phones
+     * Get store phones
      *
-     * @return string
+     * @return array
      */
-    function show_store_phones(): string
+    function show_store_phones(): array
     {
-        $outputPhones = '';
+        $outputPhones = [];
         $phones = get_setting('store_phone');
         $arrayPhones = explode(',', $phones);
         foreach($arrayPhones as $value) {
             if($value !== '+38(___) ___-__-__') {
-                $outputPhones .= $value . ', ';
+                array_push($outputPhones, $value);
             }
         }
-        $outputPhones = substr($outputPhones,0,-2);
         return $outputPhones;
     }
 }
