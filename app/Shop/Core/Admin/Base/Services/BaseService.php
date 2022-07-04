@@ -39,7 +39,7 @@ abstract class BaseService
             return $this->model->select($data)->orderBy($orderBy, $sortBy)->get();
         }
         return $this->model->orderBy($orderBy, $sortBy)->get();
-    } 
+    }
 
     /**
      * Count records in trash
@@ -59,9 +59,19 @@ abstract class BaseService
      *
      * @return int
      */
-    public function countRecordsByField(string $field, $value): int
+    public function countRecordsByField(string $field, string $condition, $value): int
     {
-        return $this->model->where($field, $value)->count();
+        return $this->model->where($field, $condition, $value)->count();
+    }
+
+    /**
+     * Count records
+     *
+     * @return int
+     */
+    public function countRecords(): int
+    {
+        return $this->model->count();
     }
 
     /**
