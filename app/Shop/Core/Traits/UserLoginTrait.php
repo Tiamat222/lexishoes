@@ -29,22 +29,33 @@ trait UserLoginTrait
      * 
      * @return bool
      */
-    public function customerLoginAttempt(array $dataToLogin): bool
+    public function userLoginAttempt(array $dataToLogin, string $guard): bool
     {
+        switch($guard) {
+            case 'admins':
+                $warningMessage = 'admin-login.admin-auth-warning';
+                $errorMessage = 'admin-login.admin-login-exists';
+                break;
+            case 'customers':
+                $warningMessage = 'front-login-customer.customer-login-warning';
+                $errorMessage = 'front-login-customer.customer-login-warning';
+                break;
+        }
+
         if(method_exists($this, 'hasTooManyLoginAttempts') && $this->hasTooManyLoginAttempts(request())) {
             $this->fireLockoutEvent(request());
             return $this->sendLockoutResponse(request());
         }
-        if(auth()->guard('customers')->attempt($dataToLogin)) {
-            if(get_auth_user('customers')->status !== 1){
-                if(get_current_route() == 'front.login.check') {
-                    session()->flash('warning_message', __('front-login-customer.customer-login-warning'));
-                }
+        if(auth()->guard($guard)->attempt($dataToLogin)) {
+            if(get_auth_user($guard)->status == 0){
+                $this->logout($guard);
+                session()->flash('warning_message', __($warningMessage));
                 return false;
             }
             $this->clearLoginAttempts(request());
             return true;
         } else {
+            session()->flash('error_message', __($errorMessage));
             $this->incrementLoginAttempts(request());
             return false;
         }
@@ -63,10 +74,10 @@ trait UserLoginTrait
     /**
      * User logout
      */
-    public function logout()
+    public function logout(string $guard)
     {
         session()->flush();
         session()->regenerate();
-        return auth()->guard('customers')->logout();
+        return auth()->guard($guard)->logout();
     }
 }
