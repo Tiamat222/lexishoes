@@ -132,7 +132,7 @@ Breadcrumbs::for('products', function ($trail) {
     $trail->push('Список товаров', route('admin.catalog.products.index'));
 });
 
-// Home > Create product
+// Home > Products > Create product
 Breadcrumbs::for('create-product', function ($trail) {
     $trail->parent('products');
     $trail->push('Новый товар');
@@ -232,4 +232,22 @@ Breadcrumbs::for('new-page', function ($trail) {
 Breadcrumbs::for('edit-page', function ($trail) {
     $trail->parent('pages');
     $trail->push('Редактирование страницы');
+});
+
+// Home > Statistics
+Breadcrumbs::for('statistics', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Статистика по магазину');
+});
+
+// Home > Callbacks
+Breadcrumbs::for('callbacks', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Обратные звонки', route('admin.callbacks.index'));
+});
+
+// Home > Callbacks > Edit
+Breadcrumbs::for('edit-callback', function ($trail) {
+    $trail->parent('callbacks');
+    $trail->push('Детали обратного звонка');
 });
