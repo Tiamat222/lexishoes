@@ -42,6 +42,14 @@
   <script src="{{ url('front-template/dist/js/price-range.js') }}"></script>
   <script src="{{ url('front-template/dist/js/jquery.prettyPhoto.js') }}"></script>
   <script src="{{ url('front-template/dist/js/main.js') }}"></script>
+  <script src="{{ url('front-template/dist/js/pages/callback.js') }}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="{{ url('admin-template/dist/js/input-mask.js') }}"></script>
+  <script>
+    $(document).ready(function(){
+      $('#phone, #phone-callback').inputmask("+38(999) 999-99-99");
+    });
+  </script>
   @stack('auth')
   @stack('profile')
   @stack('password')
