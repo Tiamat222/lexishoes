@@ -1,16 +1,17 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 
-
-
 Route::group([], function () {
-    Route::get('/login', 'LoginController@showLoginForm')->middleware('autorized')->name('login');
-    Route::post('/admin-check', 'LoginController@adminCheck')->name('check');
-    Route::get('/logout', 'LoginController@adminLogout')->name('logout');
+    Route::get('/login', 'LoginController@showLoginForm')->middleware('autorized')->name('login');//YES
+    Route::post('/admin-check', 'LoginController@adminCheck')->name('check');//YES
+    Route::get('/logout', 'LoginController@adminLogout')->name('logout');//YES
 
-    Route::get('/forget-password', 'ForgotPasswordController@showForgetPasswordForm')->name('forget.get');
-    Route::post('/forget-password', 'ForgotPasswordController@submitForgetPasswordForm')->name('forget.post'); 
-    Route::get('/reset-password/{token}', 'ForgotPasswordController@showResetPasswordForm')->name('reset.get');
+    Route::get('/forgot-password', 'ForgotPasswordController@showForgotPasswordForm')->name('forgot.get');//YES
+    Route::post('/forgot-password', 'ForgotPasswordController@submitForgotPasswordForm')->name('forgot.post');//YES
+    Route::get('/confirm-token/{token}/{id}', 'ForgotPasswordController@confirmToken')->name('forgot.confirm');//YES
+    Route::get('/reset-password', 'ForgotPasswordController@showResetPasswordForm')->name('reset.get');
+
     Route::post('/reset-password', 'ForgotPasswordController@submitResetPasswordForm')->name('reset.post');
 }); 
 
@@ -99,5 +100,14 @@ Route::group(['middleware' => 'notAutorized'], function () {
             Route::post('/admins/get-feeds', 'AdminsSettingsController@getFeeds')->name('admins.feeds');
             Route::resource('/admins', 'AdminsSettingsController');
         }); 
+    });
+    Route::group(['prefix' => 'statistics', 'as' => 'statistics.'], function () {
+        Route::group(['middleware' => 'permission:shop_statistics'], function(){
+            Route::get('/store', 'StatisticsController@charts')->name('charts');
+            Route::post('/store/get-data', 'StatisticsController@getChartData');
+        });
+    });
+    Route::group(['middleware' => 'permission:callbacks'], function() {
+        Route::resource('/callbacks', 'CallbackController');
     });
 });

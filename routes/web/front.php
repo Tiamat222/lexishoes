@@ -34,4 +34,7 @@ Route::group([], function () {
     Route::group(['prefix' => 'category', 'as' => 'category.'], function(){
         Route::get('/{slug}', 'CategoryController@showCategory')->name('show');
     });
-}); 
+    Route::group(['as' => 'callback.'], function(){
+        Route::post('/call-back', 'CallbackController@store')->name('store');
+    });
+});
