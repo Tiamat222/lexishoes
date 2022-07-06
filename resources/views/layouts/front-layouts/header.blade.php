@@ -3,13 +3,19 @@
   <div class="header-middle">
     <div class="container">
 	  <div class="row">
-		<div class="col-md-4 clearfix">
+	    <div class="col-md-4 clearfix">
 	      <div class="logo pull-left">
-			<a href="index.html"><img src="{{ url('front-template/dist/images/home/logo.png') }}" alt="" /></a>
+			<a href="{{ route('front.index') }}">
+			  @if(get_setting('store_logo') !== '' && get_setting('store_logo') !== null)
+			    <img src="{{ asset(get_setting('store_logo')) }}" title="{{ get_setting('store_title') }}">
+			  @else
+			    <img src="{{ asset('storage/images/default-images/default-store.jpg') }}" title="{{ get_setting('store_title') }}">
+			  @endif
+			</a>
 		  </div>
-		  <div class="btn-group pull-right clearfix">
+		  <div class="btn-group pull-right clearfix margin-button-header">
 			<div class="btn-group">
-		      <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+			  <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
 				USA
 				<span class="caret"></span>
 			  </button>
@@ -20,8 +26,8 @@
 			</div>
 			<div class="btn-group">
 			  <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-			    DOLLAR
-			    <span class="caret"></span>
+				DOLLAR
+				<span class="caret"></span>
 			  </button>
 			  <ul class="dropdown-menu">
 				<li><a href="">Canadian Dollar</a></li>
@@ -31,15 +37,48 @@
 		  </div>
 		</div>
 		<div class="col-md-8 clearfix">
-		  <div class="shop-menu clearfix pull-right">
+		  <div class="shop-menu clearfix pull-right header-phones">
 			<ul class="nav navbar-nav">
-		      <li><a href=""><i class="fa fa-user"></i> Account</a></li>
-			  <li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-			  <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-			  <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-			  <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+			  @if(count(show_store_phones('store_phone')) > 0)
+			    @foreach(show_store_phones('store_phone') as $phone)
+				  <li><span><a href="tel:{{ $phone }}">{{ $phone }}</a></span></li>
+				@endforeach
+			  @endif
+			  <li><a href="#" data-toggle="modal" data-target="#flipFlop"><i class="fa fa-phone"></i> Перезвонить вам?</a></li>
 			</ul>
 		  </div>
+		  <!-- Modal start -->
+		  <div class="modal fade" id="flipFlop" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+		    <div class="modal-dialog" role="document">
+			  <div class="modal-content">
+			    <div class="modal-header" style="border-bottom: 0px solid white;">
+		          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		            <span aria-hidden="true">&times;</span>
+		          </button>
+		        </div>
+		        <div class="modal-body">
+				  <div class="col-md-12" style="padding-bottom: 10px;">
+				    Укажите ваш номер телефона и имя. Мы свяжемся с вами в ближайшее время.
+				  </div>
+				  <div style="padding:10px 35px 10px 35px;">
+					<form method="POST" action="{{ route('front.callback.store') }}">
+					  {{ csrf_field() }}
+					  <div class="form-group" id="name-input">
+					    <input style="margin-bottom: 10px;" type="text" name="name" class="form-control customer-name" placeholder="Имя" required>
+			            <div id="name-error"></div>
+                      </div>
+					  <div class="form-group" id="phone-input">
+					    <input style="margin-bottom: 10px;" type="text" name="phone" id="phone-callback" class="form-control customer-phone" placeholder="Телефон" required>
+					    <div id="phone-error"></div>
+					  </div>
+					  <button type="submit" class="btn btn-success" id="send-callback">Отправить</button>
+					</form>
+				  </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+          <!-- Modal end -->
 		</div>
 	  </div>
 	</div>
@@ -66,6 +105,8 @@
 			@endif
 		  </div>
 		</div>
+		<br>
+		@include('front-templates.info-messages')
 	  </div>
 	</div>
   </div>
