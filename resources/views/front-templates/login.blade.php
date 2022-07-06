@@ -3,9 +3,6 @@
 <section id="form">
   <div class="container">
 	<div class="row">
-	  <div class="col-sm-12">
-	    @include('front-templates.info-messages')
-	  </div>
 	  <div class="col-sm-4 col-sm-offset-1">
 		<div class="login-form">
 		  <h2>Вход в аккаунт</h2>
