@@ -46,7 +46,7 @@ class LoginController extends Controller
      */
     public function login(LoginRequest $request): RedirectResponse
     {
-        if($this->loginService->customerLoginAttempt(['email' => $request->email, 'password' => $request->password])) {
+        if($this->loginService->userLoginAttempt(['email' => $request->email, 'password' => $request->password], 'customers')) {
             return redirect()->route('front.customer.profile');
         }
         return redirect()->route('front.login.show_form');
@@ -59,7 +59,7 @@ class LoginController extends Controller
      */
     public function logout(): RedirectResponse
     {
-        $this->loginService->logout();
+        $this->loginService->logout('customers');
         return redirect()
                 ->route('front.login.show_form')
                 ->with('success_message', __('front-login-customer.customer-logout'));
